@@ -208,7 +208,10 @@ class Native extends AdapterAbstract
         // Check data is a valid string
         foreach ($data as $k => $v) {
             // @codeCoverageIgnoreStart
-            if (!mb_check_encoding($v)) $data[$k] = mb_convert_encoding($v,'UTF-8');
+            if (!mb_check_encoding($v))
+            {
+                $data[$k] = mb_convert_encoding($v, 'UTF-8');
+            }
             // @codeCoverageIgnoreEnd
         }
         // var_dump($data);
