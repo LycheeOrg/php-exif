@@ -159,6 +159,9 @@ class Exiftool extends AdapterAbstract
             // @codeCoverageIgnoreEnd
         }
 
+        // Force UTF8 encoding
+        $data = $this->convertToUTF8($data);
+
         // map the data:
         $mapper = $this->getMapper();
         $mapper->setNumeric($this->numeric);

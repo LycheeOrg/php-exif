@@ -13,6 +13,7 @@ namespace PHPExif\Adapter;
 
 use PHPExif\Mapper\MapperInterface;
 use PHPExif\Hydrator\HydratorInterface;
+use ForceUTF8\Encoding;
 
 /**
  * PHP Exif Reader Adapter Abstract
@@ -128,5 +129,23 @@ abstract class AdapterAbstract implements AdapterInterface
         $hydrator->hydrate($this, $options);
 
         return $this;
+    }
+
+    /**
+     * Encodes an array of strings into UTF8
+     *
+     * @param array $data
+     * @return array
+     */
+    public function convertToUTF8($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $k => $v) {
+                $data[$k] = $this->convertToUTF8($v);
+            }
+        } else {
+            $data = Encoding::toUTF8($data);
+        }
+        return $data;
     }
 }
