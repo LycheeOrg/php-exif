@@ -305,6 +305,18 @@ class Exiftool implements MapperInterface
                     }
                     continue 2;
                     break;
+
+                // Merge sources of keywords
+                case self::KEYWORDS:
+                case self::SUBJECT:
+                    if (empty($mappedData[Exif::KEYWORDS])) {
+                        $mappedData[Exif::KEYWORDS] = $value;
+                    } else {
+                        $mappedData[Exif::KEYWORDS] = array_unique(array_merge($mappedData[Exif::KEYWORDS], $value));
+                    }
+
+                    continue 2;
+                    break;
             }
             // set end result
             $mappedData[$key] = $value;
