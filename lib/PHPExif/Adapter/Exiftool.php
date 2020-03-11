@@ -150,7 +150,7 @@ class Exiftool extends AdapterAbstract
 
         $data = json_decode($result, true);
         if (!is_array($data)) {
-          // @codeCoverageIgnoreStart
+            // @codeCoverageIgnoreStart
             throw new RuntimeException(
                 'Could not decode exiftool output'
             );

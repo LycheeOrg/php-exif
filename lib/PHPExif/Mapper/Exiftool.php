@@ -312,7 +312,9 @@ class Exiftool implements MapperInterface
                     if (empty($mappedData[Exif::KEYWORDS])) {
                         $mappedData[Exif::KEYWORDS] = $value;
                     } else {
+                        // @codeCoverageIgnoreStart
                         $mappedData[Exif::KEYWORDS] = array_unique(array_merge($mappedData[Exif::KEYWORDS], $value));
+                        // @codeCoverageIgnoreEnd
                     }
 
                     continue 2;

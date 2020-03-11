@@ -137,6 +137,8 @@ abstract class AdapterAbstract implements AdapterInterface
      * @param array $data
      * @return array
      */
+    // @codeCoverageIgnoreStart
+    // this is fine because we use it directly in our tests for Exiftool and Native
     public function convertToUTF8($data)
     {
         if (is_array($data)) {
@@ -148,4 +150,5 @@ abstract class AdapterAbstract implements AdapterInterface
         }
         return $data;
     }
+    // @codeCoverageIgnoreEnd
 }
