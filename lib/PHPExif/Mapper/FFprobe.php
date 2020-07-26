@@ -13,6 +13,7 @@ namespace PHPExif\Mapper;
 
 use PHPExif\Exif;
 use DateTime;
+use DateTimeZone;
 use Exception;
 
 /**
@@ -126,6 +127,9 @@ class FFprobe implements MapperInterface
                             // we need to remove it
                             $value = str_replace('/', '', $value);
                             $value = new DateTime($value);
+                            if ($value->getTimezone()->getName() === 'Z') {
+                                $value->setTimezone(new DateTimeZone(date_default_timezone_get()));
+                            }
                         } catch (\Exception $e) {
                             continue 2;
                         }
