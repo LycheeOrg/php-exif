@@ -183,7 +183,7 @@ class Exiftool extends MapperAbstract
     public function mapRawData(array $data) : array
     {
         $mappedData = array();
-        $gpsData = array();
+        
         foreach ($data as $field => $value) {
             if (!array_key_exists($field, $this->map)) {
                 // silently ignore unknown fields
