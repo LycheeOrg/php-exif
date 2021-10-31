@@ -20,22 +20,20 @@ namespace PHPExif\Mapper;
  * @category    PHPExif
  * @package     Mapper
  */
-interface MapperInterface
+abstract class MapperAbstract implements MapperInterface
 {
-    /**
-     * Maps the array of raw source data to the correct
-     * fields for the \PHPExif\Exif class
-     *
-     * @param array $data
-     * @return array
-     */
-    public function mapRawData(array $data) : array;
+    protected bool $numeric = true;
 
     /**
      * Mutator method for the numeric property
      *
      * @param bool $numeric
-     * @return \PHPExif\Mapper\MapperInterface
+     * @return \PHPExif\Mapper\Exiftool
      */
-    public function setNumeric(bool $numeric) : MapperInterface;
+    public function setNumeric(bool $numeric) : MapperInterface
+    {
+        $this->numeric = (bool) $numeric;
+
+        return $this;
+    }
 }

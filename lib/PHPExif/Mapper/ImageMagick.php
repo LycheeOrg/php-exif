@@ -12,7 +12,6 @@
 namespace PHPExif\Mapper;
 
 use PHPExif\Exif;
-use DateTime;
 
 /**
  * PHP Exif Imagick Mapper
@@ -22,9 +21,8 @@ use DateTime;
  * @category    PHPExif
  * @package     Mapper
  */
-class ImageMagick implements MapperInterface
+class ImageMagick extends MapperAbstract
 {
-
     const APERTURE                 = 'exif:FNumber';
     const COLORSPACE               = 'exif:ColorSpace';
     const CREATION_DATE            = 'date:create';
@@ -58,7 +56,7 @@ class ImageMagick implements MapperInterface
      *
      * @var array
      */
-    protected $map = array(
+    protected array $map = array(
         self::APERTURE                 => Exif::APERTURE,
         self::COLORSPACE               => Exif::COLORSPACE,
         self::CREATION_DATE            => Exif::CREATION_DATE,
@@ -96,10 +94,10 @@ class ImageMagick implements MapperInterface
      * @param array $data
      * @return array
      */
-    public function mapRawData(array $data)
+    public function mapRawData(array $data) : array
     {
         $mappedData = array();
-        $gpsData = array();
+
         foreach ($data as $field => $value) {
             if (!array_key_exists($field, $this->map)) {
                 // silently ignore unknown fields
@@ -219,9 +217,9 @@ class ImageMagick implements MapperInterface
      * Extract GPS coordinates from formatted string
      *
      * @param string $coordinates
-     * @return array
+     * @return float
      */
-    protected function extractGPSCoordinates($coordinates)
+    protected function extractGPSCoordinates(string $coordinates) : float
     {
         if (is_numeric($coordinates) === true) {
             return ((float) $coordinates);
@@ -243,7 +241,7 @@ class ImageMagick implements MapperInterface
      * @param string $component
      * @return float
      */
-    protected function normalizeComponent($rational)
+    protected function normalizeComponent(string $rational) : float
     {
         $parts = explode('/', $rational, 2);
         if (count($parts) == 1) {

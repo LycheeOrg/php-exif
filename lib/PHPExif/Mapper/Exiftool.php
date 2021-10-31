@@ -22,7 +22,7 @@ use DateTime;
  * @category    PHPExif
  * @package     Mapper
  */
-class Exiftool implements MapperInterface
+class Exiftool extends MapperAbstract
 {
     const APERTURE                 = 'Composite:Aperture';
     const APPROXIMATEFOCUSDISTANCE = 'XMP-aux:ApproximateFocusDistance';
@@ -99,10 +99,8 @@ class Exiftool implements MapperInterface
     /**
      * Maps the ExifTool fields to the fields of
      * the \PHPExif\Exif class
-     *
-     * @var array
      */
-    protected $map = array(
+    protected array $map = array(
         self::APERTURE                 => Exif::APERTURE,
         self::ARTIST                   => Exif::AUTHOR,
         self::MODEL                    => Exif::CAMERA,
@@ -176,31 +174,13 @@ class Exiftool implements MapperInterface
     );
 
     /**
-     * @var bool
-     */
-    protected $numeric = true;
-
-    /**
-     * Mutator method for the numeric property
-     *
-     * @param bool $numeric
-     * @return \PHPExif\Mapper\Exiftool
-     */
-    public function setNumeric($numeric)
-    {
-        $this->numeric = (bool) $numeric;
-
-        return $this;
-    }
-
-    /**
      * Maps the array of raw source data to the correct
      * fields for the \PHPExif\Exif class
      *
      * @param array $data
      * @return array
      */
-    public function mapRawData(array $data)
+    public function mapRawData(array $data) : array
     {
         $mappedData = array();
         $gpsData = array();
@@ -389,7 +369,7 @@ class Exiftool implements MapperInterface
      * @param string $coordinates
      * @return float|false
      */
-    protected function extractGPSCoordinates($coordinates)
+    protected function extractGPSCoordinates(string $coordinates) : float|false
     {
         if (is_numeric($coordinates) === true || $this->numeric === true) {
             return ((float) $coordinates);
