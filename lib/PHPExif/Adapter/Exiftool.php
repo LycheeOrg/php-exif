@@ -30,7 +30,7 @@ class Exiftool extends AdapterAbstract
     /**
      * Path to the exiftool binary
      */
-    protected string $toolPath;
+    protected string $toolPath = '';
     protected bool $numeric = true;
     protected array $encoding = array();
     protected string $mapperClass = '\\PHPExif\\Mapper\\Exiftool';

@@ -26,8 +26,8 @@ use ForceUTF8\Encoding;
 abstract class AdapterAbstract implements AdapterInterface
 {
     protected string $hydratorClass = '\\PHPExif\\Hydrator\\Mutator';
-    protected MapperInterface $mapper;
-    protected HydratorInterface $hydrator;
+    protected ?MapperInterface $mapper = null;
+    protected ?HydratorInterface $hydrator = null;
     protected string $mapperClass = '';
 
     /**

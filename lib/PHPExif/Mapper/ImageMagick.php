@@ -217,9 +217,9 @@ class ImageMagick extends MapperAbstract
      * Extract GPS coordinates from formatted string
      *
      * @param string $coordinates
-     * @return float
+     * @return float|false
      */
-    protected function extractGPSCoordinates(string $coordinates) : float
+    protected function extractGPSCoordinates(string $coordinates) : float|false
     {
         if (is_numeric($coordinates) === true) {
             return ((float) $coordinates);

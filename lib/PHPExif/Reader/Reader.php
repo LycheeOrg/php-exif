@@ -38,7 +38,7 @@ class Reader implements ReaderInterface
     /**
      * The current adapter
      */
-    protected AdapterInterface $adapter;
+    protected ?AdapterInterface $adapter;
 
     /**
      * Reader constructor
@@ -102,7 +102,7 @@ class Reader implements ReaderInterface
      * @param string $file
      * @return \PHPExif\Exif Instance of Exif object with data
      */
-    public function read(string $file) : Exif
+    public function read(string $file) : Exif|false|string
     {
         return $this->getAdapter()->getExifFromFile($file);
     }
@@ -113,7 +113,7 @@ class Reader implements ReaderInterface
      * @param string $file
      * @return \PHPExif\Exif Instance of Exif object with data
      */
-    public function getExifFromFile(string $file) : Exif
+    public function getExifFromFile(string $file) : Exif|string
     {
         return $this->read($file);
     }

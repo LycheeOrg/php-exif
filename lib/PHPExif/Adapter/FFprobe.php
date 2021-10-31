@@ -30,7 +30,7 @@ class FFprobe extends AdapterAbstract
     /**
      * Path to the exiftool binary
      */
-    protected string $toolPath;
+    protected string $toolPath = '';
     protected string $mapperClass = '\\PHPExif\\Mapper\\FFprobe';
 
 
@@ -83,7 +83,7 @@ class FFprobe extends AdapterAbstract
      * @param string $file
      * @return \PHPExif\Exif|boolean Instance of Exif object with data
      */
-    public function getExifFromFile(string $file) : Exif
+    public function getExifFromFile(string $file) : Exif|false
     {
         $mimeType = mime_content_type($file);
 
