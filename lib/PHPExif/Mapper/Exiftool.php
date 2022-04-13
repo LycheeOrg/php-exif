@@ -349,10 +349,11 @@ class Exiftool implements MapperInterface
                 // Merge sources of keywords
                 case self::KEYWORDS:
                 case self::SUBJECT:
+                    $xval = is_array( $value) ? $value : array( 0 => $value);
                     if (empty($mappedData[Exif::KEYWORDS])) {
-                        $mappedData[Exif::KEYWORDS] = $value;
+                        $mappedData[Exif::KEYWORDS] = $xval;
                     } else {
-                        $tmp = array_values(array_unique(array_merge($mappedData[Exif::KEYWORDS], $value)));
+                        $tmp = array_values(array_unique(array_merge($mappedData[Exif::KEYWORDS], $xval)));
                         $mappedData[Exif::KEYWORDS] = $tmp;
                     }
 
