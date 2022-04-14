@@ -120,9 +120,7 @@ class FFprobe implements MapperInterface
                 case self::DATETIMEORIGINAL:
                     // QUICKTIME_DATE contains data on timezone
                     // only set value if QUICKTIME_DATE has not been used
-                    if (!isset($mappedData[Exif::CREATION_DATE])
-                            && $value !== '0000:00:00 00:00:00'
-                            && $value !== '0000:00:00T00:00:00.000000Z') {
+                    if (!isset($mappedData[Exif::CREATION_DATE]) && preg_match('/^0000:00:00.00:00:00/', $value) === 0) {
                         try {
                             // Some cameras add a '/' between date and time
                             // we need to remove it
@@ -137,6 +135,9 @@ class FFprobe implements MapperInterface
 
                     break;
                 case self::QUICKTIME_DATE:
+                    if (preg_match('/^0000:00:00.00:00:00/', $value) === 1) {
+                        continue 2;
+                    }
                     try {
                         $value = new DateTime($value);
                     } catch (\Exception $e) {
