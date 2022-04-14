@@ -114,7 +114,8 @@ class ImageMagick implements MapperInterface
                     $value = sprintf('f/%01.1f', $this->normalizeComponent($value));
                     break;
                 case self::CREATION_DATE:
-                    if (!isset($mappedData[Exif::CREATION_DATE]) && preg_match('/^0000:00:00.00:00:00/', $value) === 0) {
+                    if (!isset($mappedData[Exif::CREATION_DATE])
+                            && preg_match('/^0000:00:00.00:00:00/', $value) === 0) {
                         try {
                             $value = new \DateTime($value);
                         } catch (\Exception $e) {
