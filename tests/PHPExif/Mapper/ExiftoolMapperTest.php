@@ -728,7 +728,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $mapped = $this->mapper->mapRawData($rawData);
 
         $this->assertEquals(
-            'Keyword_1 Keyword_2',
+            array('Keyword_1 Keyword_2'),
             reset($mapped)
         );
     }
