@@ -181,7 +181,7 @@ class Exiftool extends MapperInterface
      * @param bool $numeric
      * @return \PHPExif\Mapper\Exiftool
      */
-    public function setNumeric(bool $numeric) : MapperInterface
+    public function setNumeric(bool $numeric) : Exiftool
     {
         $this->numeric = (bool) $numeric;
 

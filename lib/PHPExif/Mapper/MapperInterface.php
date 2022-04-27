@@ -30,12 +30,4 @@ interface MapperInterface
      * @return array
      */
     public function mapRawData(array $data) : array;
-
-    /**
-     * Mutator method for the numeric property
-     *
-     * @param bool $numeric
-     * @return \PHPExif\Mapper\MapperInterface
-     */
-    public function setNumeric(bool $numeric) : MapperInterface;
 }
