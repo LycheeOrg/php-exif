@@ -22,7 +22,7 @@ use DateTime;
  * @category    PHPExif
  * @package     Mapper
  */
-class Exiftool extends MapperInterface
+class Exiftool implements MapperInterface
 {
     const APERTURE                 = 'Composite:Aperture';
     const APPROXIMATEFOCUSDISTANCE = 'XMP-aux:ApproximateFocusDistance';
