@@ -21,7 +21,7 @@ use PHPExif\Exif;
  * @category    PHPExif
  * @package     Mapper
  */
-class Native extends MapperAbstract
+class Native extends MapperInterface
 {
     const APERTUREFNUMBER  = 'ApertureFNumber';
     const ARTIST           = 'Artist';

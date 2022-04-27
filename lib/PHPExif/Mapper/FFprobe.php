@@ -23,7 +23,7 @@ use Exception;
  * @category    PHPExif
  * @package     Mapper
  */
-class FFprobe extends MapperAbstract
+class FFprobe extends MapperInterface
 {
     const HEIGHT           = 'height';
     const WIDTH            = 'width';

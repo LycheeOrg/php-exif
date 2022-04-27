@@ -149,6 +149,9 @@ class Exiftool extends AdapterAbstract
         }
 
         // map the data:
+        /**
+         * @var \PHPExif\Mapper\Exiftool
+         */
         $mapper = $this->getMapper();
         $mapper->setNumeric($this->numeric);
         $mappedData = $mapper->mapRawData(reset($data));

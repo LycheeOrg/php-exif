@@ -21,7 +21,7 @@ use PHPExif\Exif;
  * @category    PHPExif
  * @package     Mapper
  */
-class ImageMagick extends MapperAbstract
+class ImageMagick extends MapperInterface
 {
     const APERTURE                 = 'exif:FNumber';
     const COLORSPACE               = 'exif:ColorSpace';

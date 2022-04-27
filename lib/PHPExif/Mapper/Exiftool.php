@@ -22,7 +22,7 @@ use DateTime;
  * @category    PHPExif
  * @package     Mapper
  */
-class Exiftool extends MapperAbstract
+class Exiftool extends MapperInterface
 {
     const APERTURE                 = 'Composite:Aperture';
     const APPROXIMATEFOCUSDISTANCE = 'XMP-aux:ApproximateFocusDistance';
@@ -172,6 +172,21 @@ class Exiftool extends MapperAbstract
         self::COUNTRY                     => Exif::COUNTRY,
         self::DATETIMEORIGINAL_PNG        => Exif::CREATION_DATE
     );
+
+    protected bool $numeric = true;
+
+    /**
+     * Mutator method for the numeric property
+     *
+     * @param bool $numeric
+     * @return \PHPExif\Mapper\Exiftool
+     */
+    public function setNumeric(bool $numeric) : MapperInterface
+    {
+        $this->numeric = (bool) $numeric;
+
+        return $this;
+    }
 
     /**
      * Maps the array of raw source data to the correct
