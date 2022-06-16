@@ -20,13 +20,13 @@ jobs:
       matrix:
         operating-system: [ubuntu-20.04]
         php-versions: ['8.0', '8.1']
-        beta: ['yes', 'no']
+        beta: ['beta', '']
         dependencies: ['--no-interaction', '-vvv --prefer-lowest --prefer-stable --no-interaction']
         exclude:
-          - beta: 'yes'
+          - beta: 'beta'
             dependencies: '-vvv --prefer-lowest --prefer-stable --no-interaction'
 
-    name: PHP ${{ matrix.php-versions }} - ${{ matrix.dependencies }}
+    name: PHP ${{ matrix.php-versions }} -- ${{ matrix.beta }} ${{ matrix.dependencies }}
 
     env:
       extensions: curl, dom, imagick, json, libxml, mbstring
