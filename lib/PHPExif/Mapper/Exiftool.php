@@ -304,7 +304,7 @@ class Exiftool implements MapperInterface
                     break;
                 case self::GPSALTITUDE:
                     $flip = 1;
-                    if (!($data['GPS:GPSAltitudeRef'] === '')) {
+                    if (array_key_exists('GPS:GPSAltitudeRef', $data)) {
                         $flip = ($data['GPS:GPSAltitudeRef'] == '1') ? -1 : 1;
                     }
                         $value = $flip * (float) $value;
@@ -326,14 +326,14 @@ class Exiftool implements MapperInterface
                             $rotate = true;
                         }
                     }
-                    if ($mappedData[Exif::WIDTH] === '') {
+                    if (!array_key_exists(Exif::WIDTH, $mappedData)) {
                         if (!($rotate)) {
                             $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
                         } else {
                             $mappedData[Exif::WIDTH]  = intval($value_splitted[1]);
                         }
                     }
-                    if ($mappedData[Exif::HEIGHT] === '') {
+                    if (!array_key_exists(Exif::HEIGHT, $mappedData)) {
                         if (!($rotate)) {
                             $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
                         } else {
@@ -351,7 +351,7 @@ class Exiftool implements MapperInterface
                 case self::KEYWORDS:
                 case self::SUBJECT:
                     $xval = is_array($value) ? $value : [$value];
-                    if ($mappedData[Exif::KEYWORDS] === '') {
+                    if (!array_key_exists(Exif::KEYWORDS, $mappedData)) {
                         $mappedData[Exif::KEYWORDS] = $xval;
                     } else {
                         $tmp = array_values(array_unique(array_merge($mappedData[Exif::KEYWORDS], $xval)));
@@ -360,7 +360,7 @@ class Exiftool implements MapperInterface
 
                     continue 2;
                 case self::LENS_ID:
-                    if ($mappedData[Exif::LENS] === '') {
+                    if (!array_key_exists(Exif::LENS, $mappedData)) {
                         $mappedData[Exif::LENS] = $value;
                     }
                     continue 2;
