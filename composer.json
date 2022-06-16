@@ -53,12 +53,17 @@
         "validate-files": [
             "vendor/bin/parallel-lint --exclude vendor --exclude imagick ."
         ],
-		"phpstan": [
-			"vendor/bin/phpstan analyze"
-		]
+        "phpstan": [
+            "vendor/bin/phpstan analyze"
+        ]
     },
     "config": {
-        "sort-packages": true
+        "platform": {
+            "php": "8.0.2"
+        },
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "prefer-stable": true
 }
