@@ -15,7 +15,8 @@
         "php": "^8.0",
         "ext-fileinfo": "*",
         "neitanod/forceutf8": "^2.0.4",
-        "php-ffmpeg/php-ffmpeg": "^1.0"
+        "php-ffmpeg/php-ffmpeg": "^1.0",
+        "thecodingmachine/safe": "^2.2"
     },
     "require-dev": {
         "ergebnis/phpstan-rules": "^1.0",
