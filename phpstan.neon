@@ -1,0 +1,30 @@
+includes:
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
+	- vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+
+services:
+	-
+		class: Ergebnis\PHPStan\Rules\Expressions\NoErrorSuppressionRule
+		tags:
+			- phpstan.rules.rule
+	-
+		class: SlamPhpStan\UnusedVariableRule
+		tags:
+			- phpstan.rules.rule
+
+parameters:
+	level: 7
+	reportMaybesInPropertyPhpDocTypes: false
+	checkMissingIterableValueType: false
+	paths:
+		- lib
+	excludePaths:
+		- app/View/*
+		- app/Http/Livewire/*
+	ignoreErrors:
+		# - '#Short ternary operator is not allowed#' # we like short ternary
+		# - '#Construct empty\(\) is not allowed#' # we like empty()
+
+		# https://github.com/thecodingmachine/safe/issues/283
+		- '#Parameter \#(1|2) \$.* of function Safe\\image.* expects (resource|GdImage), (GdImage|resource)?(\|resource)? given.#'
