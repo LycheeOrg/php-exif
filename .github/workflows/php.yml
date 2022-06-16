@@ -21,10 +21,12 @@ jobs:
         operating-system: [ubuntu-20.04]
         php-versions: ['8.0', '8.1']
         beta: ['beta', '']
-        dependencies: ['--no-interaction', '-vvv --prefer-lowest --prefer-stable --no-interaction']
+        dependencies: ['locked', 'lowest', 'highest']
         exclude:
           - beta: 'beta'
-            dependencies: '-vvv --prefer-lowest --prefer-stable --no-interaction'
+            dependencies: 'locked'
+          - beta: 'beta'
+            dependencies: 'lowest'
 
     name: PHP ${{ matrix.php-versions }} -- ${{ matrix.beta }} ${{ matrix.dependencies }}
 
@@ -61,7 +63,7 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
         with:
-          composer-options: "${{ matrix.dependencies }}"
+          dependency-versions: "${{ matrix.dependencies }}"
 
       # - name: boot test server
       #   run: vendor/bin/http_test_server > /dev/null 2>&1 &
