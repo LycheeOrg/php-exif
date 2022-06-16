@@ -37,7 +37,7 @@ abstract class AdapterAbstract implements AdapterInterface
      */
     public function __construct(array $options = array())
     {
-        if (!empty($options)) {
+        if (count($options) > 0) {
             $this->setOptions($options);
         }
     }
@@ -64,6 +64,7 @@ abstract class AdapterAbstract implements AdapterInterface
     {
         if (null === $this->mapper) {
             // lazy load one
+            /** @var MapperInterface */
             $mapper = new $this->mapperClass;
 
             $this->setMapper($mapper);
@@ -94,6 +95,7 @@ abstract class AdapterAbstract implements AdapterInterface
     {
         if (null === $this->hydrator) {
             // lazy load one
+            /** @var HydratorInterface */
             $hydrator = new $this->hydratorClass;
 
             $this->setHydrator($hydrator);
@@ -106,7 +108,7 @@ abstract class AdapterAbstract implements AdapterInterface
      * Set array of options in the current object
      *
      * @param array $options
-     * @return \PHPExif\Reader\AdapterAbstract
+     * @return \PHPExif\Adapter\AdapterInterface
      */
     public function setOptions(array $options) : AdapterInterface
     {
