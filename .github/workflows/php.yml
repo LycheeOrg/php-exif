@@ -54,7 +54,7 @@ jobs:
           tools: pecl, composer
 
       - name: Fix beta
-        if: ${{ matrix.beta == 'yes' }}
+        if: ${{ matrix.beta == 'beta' }}
         run: perl -pi -e 's/^}$/,"minimum-stability":"beta"}/' composer.json
 
       # Install dependencies and handle caching in one go.
