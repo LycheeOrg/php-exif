@@ -321,7 +321,7 @@ class Exiftool implements MapperInterface
                     preg_match("#^(\d+)[^\d]+(\d+)$#", $value, $matches);
                     $value_splitted = array_slice($matches, 1);
                     $rotate = false;
-                    if (!($data['Composite:Rotation'] === '')) {
+                    if (array_key_exists('Composite:Rotation', $data)) {
                         if ($data['Composite:Rotation']=='90' || $data['Composite:Rotation']=='270') {
                             $rotate = true;
                         }
