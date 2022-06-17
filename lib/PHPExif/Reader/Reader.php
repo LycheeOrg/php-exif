@@ -38,7 +38,7 @@ class Reader implements ReaderInterface
     /**
      * The current adapter
      */
-    protected ?AdapterInterface $adapter;
+    protected ?AdapterInterface $adapter = null;
 
     /**
      * Reader constructor

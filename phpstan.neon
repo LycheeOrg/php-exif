@@ -19,12 +19,5 @@ parameters:
 	checkMissingIterableValueType: false
 	paths:
 		- lib
-	excludePaths:
-		- app/View/*
-		- app/Http/Livewire/*
 	ignoreErrors:
-		# - '#Short ternary operator is not allowed#' # we like short ternary
-		# - '#Construct empty\(\) is not allowed#' # we like empty()
-
-		# https://github.com/thecodingmachine/safe/issues/283
-		- '#Parameter \#(1|2) \$.* of function Safe\\image.* expects (resource|GdImage), (GdImage|resource)?(\|resource)? given.#'
+		- '#Array has (2|3) duplicate keys#'
