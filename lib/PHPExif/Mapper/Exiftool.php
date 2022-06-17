@@ -282,7 +282,8 @@ class Exiftool implements MapperInterface
                     $value  = $this->extractGPSCoordinates($value);
                     break;
                 case self::GPSLATITUDE:
-                    $latitudeRef = !array_key_exists('GPS:GPSLatitudeRef', $data) ? 'N' : $data['GPS:GPSLatitudeRef'][0];
+                    $latitudeRef = !array_key_exists('GPS:GPSLatitudeRef', $data) ?
+                        'N' : $data['GPS:GPSLatitudeRef'][0];
                     $value = $this->extractGPSCoordinates($value);
                     if ($value !== false) {
                         $value = (strtoupper($latitudeRef) === 'S' ? -1.0 : 1.0) * $value;
@@ -295,7 +296,8 @@ class Exiftool implements MapperInterface
                     $value  = $this->extractGPSCoordinates($value);
                     break;
                 case self::GPSLONGITUDE:
-                    $longitudeRef = !array_key_exists('GPS:GPSLongitudeRef', $data) ? 'E' : $data['GPS:GPSLongitudeRef'][0];
+                    $longitudeRef = !array_key_exists('GPS:GPSLongitudeRef', $data) ?
+                        'E' : $data['GPS:GPSLongitudeRef'][0];
                     $value  = $this->extractGPSCoordinates($value);
                     if ($value !== false) {
                         $value  = (strtoupper($longitudeRef) === 'W' ? -1 : 1) * $value;
