@@ -125,6 +125,7 @@ class FFprobe extends AdapterAbstract
         $data = array_replace_recursive($stream, $format, $additional_data);
 
         // Force UTF8 encoding
+        /** @var array */
         $data = $this->convertToUTF8($data);
 
         // map the data:
