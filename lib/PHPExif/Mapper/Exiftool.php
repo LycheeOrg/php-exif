@@ -313,7 +313,7 @@ class Exiftool implements MapperInterface
                     break;
                 case self::GPSALTITUDE_QUICKTIME:
                     $flip = 1;
-                    if (!($data['Composite:GPSAltitudeRef'] === '')) {
+                    if (array_key_exists('Composite:GPSAltitudeRef', $data)) {
                         $flip = ($data['Composite:GPSAltitudeRef'] == '1') ? -1 : 1;
                     }
                     $value = $flip * (float) $value;
