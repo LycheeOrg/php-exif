@@ -50,7 +50,12 @@ class ImageMagick extends AdapterAbstract
         $mimeType = mime_content_type($file);
         $data_width = $im->getImageWidth();
         $data_height = $im->getImageHeight();
-        $additional_data = array('MimeType' => $mimeType, 'filesize' => $data_filesize, 'filename' => $data_filename, 'width' => $data_width, 'height' => $data_height);
+        $additional_data = array(
+            'MimeType' => $mimeType,
+            'filesize' => $data_filesize,
+            'filename' => $data_filename,
+            'width' => $data_width,
+            'height' => $data_height);
 
         $data = array_merge($data_exif, $additional_data);
 
