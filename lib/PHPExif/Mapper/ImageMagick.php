@@ -175,8 +175,6 @@ class ImageMagick implements MapperInterface
                     $value = $this->extractGPSCoordinates($value);
                     if ($value !== false) {
                         $value = (strtoupper($latitudeRef) === 'S' ? -1.0 : 1.0) * $value;
-                    } else {
-                        $value = false;
                     }
 
                     break;
@@ -235,7 +233,7 @@ class ImageMagick implements MapperInterface
         if (is_numeric($coordinates) === true) {
             return ((float) $coordinates);
         } else {
-            $m = '!^([1-9][0-9]*\/[1-9][0-9]*), ([1-9][0-9]*\/[1-9][0-9]*), ([1-9][0-9]*\/[1-9][0-9]*)!';
+            $m = '!^([0-9]+\/[1-9][0-9]*), ([0-9]+\/[1-9][0-9]*), ([0-9]+\/[1-9][0-9]*)!';
             if (preg_match($m, $coordinates, $matches) === 0) {
                 return false;
             }
