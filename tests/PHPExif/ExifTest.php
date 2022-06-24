@@ -793,6 +793,15 @@ class ExifTest extends \PHPUnit\Framework\TestCase
             $setter = 'set' . ucfirst($value);
 
             switch ($value) {
+                case 'altitude':
+                case 'imgDirection':
+                case 'latitude':
+                case 'longitude':
+                    $coord = 1.2345;
+                    $this->exif->$setter($coord);
+                    $propertyValue = $reflProp->getValue($this->exif);
+                    $this->assertEquals($coord, $propertyValue[$value]);
+                    break;
                 case 'creationdate':
                     $now = new \DateTime();
                     $this->exif->$setter($now);
