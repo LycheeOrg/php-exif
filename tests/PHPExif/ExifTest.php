@@ -808,6 +808,12 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                     $propertyValue = $reflProp->getValue($this->exif);
                     $this->assertSame($now, $propertyValue[$value]);
                     break;
+                case 'FileSize':
+                    $size = 10123456;
+                    $this->exif->$setter($size);
+                    $propertyValue = $reflProp->getValue($this->exif);
+                    $this->assertEquals($size, $propertyValue[$value]);
+                    break;
                 case 'gps':
                     $coords = '40.333452380556,-20.167314813889';
                     $setter = 'setGPS';
