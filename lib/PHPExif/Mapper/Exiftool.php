@@ -396,7 +396,7 @@ class Exiftool implements MapperInterface
         if (is_numeric($coordinates) === true || $this->numeric === true) {
             return ((float) $coordinates);
         } else {
-            if (0 === preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches)) {
+            if (preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches) === 0) {
                 return false;
             }
 
