@@ -43,8 +43,10 @@ class ImageMagick implements MapperInterface
     const GPSALTITUDE              = 'exif:GPSAltitude';
     const IMAGEHEIGHT              = 'exif:PixelYDimension';
     const IMAGEHEIGHT_PNG          = 'png:IHDR.width,height';
+    const HEIGHT                   = 'height';
     const IMAGEWIDTH               = 'exif:PixelXDimension';
     const IMAGEWIDTH_PNG           = 'png:IHDR.width,height';
+    const WIDTH                    = 'width';
     const IMGDIRECTION             = 'exif:GPSImgDirection';
     const ISO                      = 'exif:PhotographicSensitivity';
     const LENS                     = 'exif:LensModel';
@@ -78,8 +80,10 @@ class ImageMagick implements MapperInterface
         self::IMGDIRECTION             => Exif::IMGDIRECTION,
         self::IMAGEHEIGHT              => Exif::HEIGHT,
         self::IMAGEHEIGHT_PNG          => Exif::HEIGHT,
+        self::HEIGHT                   => Exif::HEIGHT,
         self::IMAGEWIDTH               => Exif::WIDTH,
         self::IMAGEWIDTH_PNG           => Exif::WIDTH,
+        self::WIDTH                    => Exif::WIDTH,
         self::ISO                      => Exif::ISO,
         self::LENS                     => Exif::LENS,
         self::MAKE                     => Exif::MAKE,
