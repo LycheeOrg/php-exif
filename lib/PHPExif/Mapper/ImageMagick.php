@@ -252,13 +252,13 @@ class ImageMagick implements MapperInterface
             if (preg_match($m, $coordinates, $matches) === 0) {
                 return false;
             }
-            $degree = floatval($this->normalizeComponent($matches[1]));
-            $minutes = floatval($this->normalizeComponent($matches[2]));
-            $seconds = floatval($this->normalizeComponent($matches[3]));
-            if ($degree === false || $minutes === false || $seconds === false) {
+            $degrees = $this->normalizeComponent($matches[1]);
+            $minutes = $this->normalizeComponent($matches[2]);
+            $seconds = $this->normalizeComponent($matches[3]);
+            if ($degrees === false || $minutes === false || $seconds === false) {
                 return false;
             }
-            return $degree + $minutes / 60 + $seconds / 3600;
+            return $degrees + $minutes / 60 + $seconds / 3600;
         }
     }
 
