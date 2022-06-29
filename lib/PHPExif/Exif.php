@@ -969,10 +969,10 @@ class Exif
     /**
      * Sets the altitude value
      *
-     * @param float|false $value
+     * @param float $value
      * @return Exif
      */
-    public function setLongitude(float|false $value) : Exif
+    public function setLongitude(float $value) : Exif
     {
         $this->data[self::LONGITUDE] = $value;
 
@@ -996,10 +996,10 @@ class Exif
     /**
      * Sets the latitude value
      *
-     * @param float|false $value
+     * @param float $value
      * @return Exif
      */
-    public function setLatitude(float|false $value) : Exif
+    public function setLatitude(float $value) : Exif
     {
         $this->data[self::LATITUDE] = $value;
 
