@@ -119,7 +119,11 @@ class ImageMagick implements MapperInterface
             // manipulate the value if necessary
             switch ($field) {
                 case self::APERTURE:
-                    $value = sprintf('f/%01.1f', $this->normalizeComponent($value));
+                    $value = $this->normalizeComponent($value);
+                    if ($value === false) {
+                        continue 2;
+                    }
+                    $value = sprintf('f/%01.1f', $value);
                     break;
                 case self::CREATION_DATE:
                     if (!isset($mappedData[Exif::CREATION_DATE])
@@ -154,6 +158,9 @@ class ImageMagick implements MapperInterface
                     break;
                 case self::EXPOSURETIME:
                     $value = $this->normalizeComponent($value);
+                    if ($value === false) {
+                        continue 2;
+                    }
                     // Based on the source code of Exiftool (PrintExposureTime subroutine):
                     // http://cpansearch.perl.org/src/EXIFTOOL/Image-ExifTool-9.90/lib/Image/ExifTool/Exif.pm
                     if ($value < 0.25001 && $value > 0) {
@@ -169,6 +176,9 @@ class ImageMagick implements MapperInterface
                         $value = reset($focalLengthParts);
                     }
                     $value = $this->normalizeComponent($value);
+                    if ($value === false) {
+                        continue 2;
+                    }
                     break;
                 case self::ISO:
                     $value = preg_split('/([\s,]+)/', $value)[0];
@@ -177,36 +187,43 @@ class ImageMagick implements MapperInterface
                     $latitudeRef = !array_key_exists('exif:GPSLatitudeRef', $data) ?
                         'N' : $data['exif:GPSLatitudeRef'][0];
                     $value = $this->extractGPSCoordinates($value);
-                    if ($value !== false) {
-                        $value = (strtoupper($latitudeRef) === 'S' ? -1.0 : 1.0) * $value;
+                    if ($value === false) {
+                        continue 2;
                     }
-
+                    $value *= strtoupper($latitudeRef) === 'S' ? -1 : 1;
                     break;
                 case self::GPSLONGITUDE:
                     $longitudeRef = !array_key_exists('exif:GPSLongitudeRef', $data) ?
                         'E' : $data['exif:GPSLongitudeRef'][0];
                     $value  = $this->extractGPSCoordinates($value);
-                    if ($value !== false) {
-                        $value  = (strtoupper($longitudeRef) === 'W' ? -1 : 1) * $value;
+                    if ($value === false) {
+                        continue 2;
                     }
-
+                    $value *= strtoupper($longitudeRef) === 'W' ? -1 : 1;
                     break;
                 case self::GPSALTITUDE:
                     $flip = 1;
                     if (array_key_exists('exif:GPSAltitudeRef', $data)) {
                         $flip = ($data['exif:GPSAltitudeRef'] === '1') ? -1 : 1;
                     }
-                    $value = $flip * $this->normalizeComponent($value);
+                    $value = $this->normalizeComponent($value);
+                    if ($value === false) {
+                        continue 2;
+                    }
+                    $value *= $flip;
                     break;
                 case self::IMAGEHEIGHT_PNG:
                 case self::IMAGEWIDTH_PNG:
-                    $value_splitted = explode(",", $value);
+                    $value_split = explode(",", $value);
 
-                    $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
-                    $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
+                    $mappedData[Exif::WIDTH]  = intval($value_split[0]);
+                    $mappedData[Exif::HEIGHT] = intval($value_split[1]);
                     continue 2;
                 case self::IMGDIRECTION:
                     $value = $this->normalizeComponent($value);
+                    if ($value === false) {
+                        continue 2;
+                    }
                     break;
             }
             // set end result
@@ -215,13 +232,7 @@ class ImageMagick implements MapperInterface
 
         // add GPS coordinates, if available
         if ((isset($mappedData[Exif::LATITUDE])) && (isset($mappedData[Exif::LONGITUDE]))) {
-            if (($mappedData[Exif::LATITUDE]!==false) && $mappedData[Exif::LONGITUDE]!==false) {
-                $mappedData[Exif::GPS] = sprintf('%s,%s', $mappedData[Exif::LATITUDE], $mappedData[Exif::LONGITUDE]);
-            } else {
-                $mappedData[Exif::GPS] = false;
-            }
-        } else {
-            unset($mappedData[Exif::GPS]);
+            $mappedData[Exif::GPS] = sprintf('%s,%s', $mappedData[Exif::LATITUDE], $mappedData[Exif::LONGITUDE]);
         }
         return $mappedData;
     }
@@ -244,6 +255,9 @@ class ImageMagick implements MapperInterface
             $degree = floatval($this->normalizeComponent($matches[1]));
             $minutes = floatval($this->normalizeComponent($matches[2]));
             $seconds = floatval($this->normalizeComponent($matches[3]));
+            if ($degree === false || $minutes === false || $seconds === false) {
+                return false;
+            }
             return $degree + $minutes / 60 + $seconds / 3600;
         }
     }
@@ -252,9 +266,9 @@ class ImageMagick implements MapperInterface
      * Normalize component
      *
      * @param string $rational
-     * @return float
+     * @return float|false
      */
-    protected function normalizeComponent(string $rational) : float
+    protected function normalizeComponent(string $rational) : float|false
     {
         $parts = explode('/', $rational, 2);
         if (count($parts) === 1) {
@@ -263,7 +277,7 @@ class ImageMagick implements MapperInterface
         // case part[1] is 0, div by 0 is forbidden.
         // Catch case of one entry not being numeric
         if ($parts[1] === '0' || !is_numeric($parts[0]) || !is_numeric($parts[1])) {
-            return (float) 0;
+            return false;
         }
         return (float) $parts[0] / $parts[1];
     }
