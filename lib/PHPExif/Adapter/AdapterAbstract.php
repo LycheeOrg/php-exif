@@ -132,7 +132,9 @@ abstract class AdapterAbstract implements AdapterInterface
         if (is_array($data)) {
             /** @var array|string $v */
             foreach ($data as $k => $v) {
-                $data[$k] = $this->convertToUTF8($v);
+                if ($v !== null) {
+                    $data[$k] = $this->convertToUTF8($v);
+                }
             }
         } else {
             $data = Encoding::toUTF8($data);
