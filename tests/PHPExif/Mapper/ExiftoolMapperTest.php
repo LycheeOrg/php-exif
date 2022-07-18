@@ -415,7 +415,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
             )
         );
 
-	$this->assertEquals(false, reset($result));
+        $this->assertEquals(false, reset($result));
     }
 
     /**
