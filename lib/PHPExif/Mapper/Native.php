@@ -235,7 +235,7 @@ class Native implements MapperInterface
                     $value = (int) reset($resolutionParts);
                     break;
                 case self::GPSLATITUDE:
-                    $GPSLatitudeRef = '';
+                    $GPSLatitudeRef = 'N';
                     if (array_key_exists('GPSLatitudeRef', $data)
                         && $data['GPSLatitudeRef'] !== null && $data['GPSLatitudeRef'][0] !== '') {
                         $GPSLatitudeRef = $data['GPSLatitudeRef'][0];
@@ -246,7 +246,7 @@ class Native implements MapperInterface
                     }
                     break;
                 case self::GPSLONGITUDE:
-                    $GPSLongitudeRef = '';
+                    $GPSLongitudeRef = 'E';
                     if (array_key_exists('GPSLongitudeRef', $data)
                         && $data['GPSLongitudeRef'] !== null && $data['GPSLongitudeRef'][0] !== '') {
                         $GPSLongitudeRef = $data['GPSLongitudeRef'][0];

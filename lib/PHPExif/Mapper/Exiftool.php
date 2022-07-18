@@ -291,7 +291,7 @@ class Exiftool implements MapperInterface
                         continue 2;
                     }
                     $latitudeRef = !array_key_exists('GPS:GPSLatitudeRef', $data)
-                        || $data['GPS:GPSLatitudeRef'] === '' ?
+                        || $data['GPS:GPSLatitudeRef'] === null || $data['GPS:GPSLatitudeRef'] === '' ?
                         'N' : $data['GPS:GPSLatitudeRef'][0];
                     $value *= strtoupper($latitudeRef) === 'S' ? -1 : 1;
                     break;
@@ -307,7 +307,7 @@ class Exiftool implements MapperInterface
                         continue 2;
                     }
                     $longitudeRef = !array_key_exists('GPS:GPSLongitudeRef', $data)
-                        || $data['GPS:GPSLongitudeRef'] === '' ?
+                        || $data['GPS:GPSLongitudeRef'] === null || $data['GPS:GPSLongitudeRef'] === '' ?
                         'E' : $data['GPS:GPSLongitudeRef'][0];
                     $value *= strtoupper($longitudeRef) === 'W' ? -1 : 1;
                     break;

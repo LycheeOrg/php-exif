@@ -189,7 +189,7 @@ class ImageMagick implements MapperInterface
                         continue 2;
                     }
                     $latitudeRef = !array_key_exists('exif:GPSLatitudeRef', $data)
-                        || $data['exif:GPSLatitudeRef'] === '' ?
+                        || $data['exif:GPSLatitudeRef'] === null || $data['exif:GPSLatitudeRef'] === '' ?
                         'N' : $data['exif:GPSLatitudeRef'][0];
                     $value *= strtoupper($latitudeRef) === 'S' ? -1 : 1;
                     break;
@@ -199,7 +199,7 @@ class ImageMagick implements MapperInterface
                         continue 2;
                     }
                     $longitudeRef = !array_key_exists('exif:GPSLongitudeRef', $data)
-                        || $data['exif:GPSLongitudeRef'] === '' ?
+                        || $data['exif:GPSLongitudeRef'] === null || $data['exif:GPSLongitudeRef'] === '' ?
                         'E' : $data['exif:GPSLongitudeRef'][0];
                     $value *= strtoupper($longitudeRef) === 'W' ? -1 : 1;
                     break;
