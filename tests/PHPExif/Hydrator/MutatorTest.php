@@ -79,8 +79,8 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
             ->setMethods(array('setFoo', 'setBar'))
             ->getMock();
 
-	$mock->expects($this->exactly(1))
-	    ->method('setFoo');
+        $mock->expects($this->exactly(1))
+            ->method('setFoo');
         $mock->expects($this->exactly(1))
             ->method('setBar');
 
