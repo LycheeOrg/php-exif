@@ -196,10 +196,10 @@ class Native extends AdapterAbstract
         $sections   = $sections === '' ? null : $sections;
 
         // exif_read_data raises E_WARNING/E_NOTICE errors for unsupported
-	// tags, which could result in exceptions being thrown, even though
-	// the function would otherwise succeed to return valid tags.
-	// We explicitly disable this undesirable behavior.
-	// @phpstan-ignore-next-line
+        // tags, which could result in exceptions being thrown, even though
+        // the function would otherwise succeed to return valid tags.
+        // We explicitly disable this undesirable behavior.
+        // @phpstan-ignore-next-line
         $data = @exif_read_data(
             $file,
             $sections,
