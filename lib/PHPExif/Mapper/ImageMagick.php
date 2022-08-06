@@ -290,8 +290,8 @@ class ImageMagick implements MapperInterface
                 return false;
             }
             $degrees = $this->normalizeComponent($matches[1]);
-            $minutes = count($matches) > 2 ? $this->normalizeComponent($matches[2]) : 0;
-            $seconds = count($matches) > 3 ? $this->normalizeComponent($matches[3]) : 0;
+            $minutes = $this->normalizeComponent($matches[2] ?? 0);
+            $seconds = $this->normalizeComponent($matches[3] ?? 0);
             if ($degrees === false || $minutes === false || $seconds === false) {
                 return false;
             }
