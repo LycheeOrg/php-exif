@@ -166,6 +166,15 @@ jobs:
 
   # support for mutation testing.
   #
+  # This section is disabled because Mutation testing is a rather slow process
+  # and furthermore adds lots of noise into the pull request review panel by Github.
+  # While it is an intersting set of tests to have, this does not constitute major
+  # improvements to the full code base.
+  #
+  # TODO: This section can be uncommented once ALL the code paths are evaluted.
+  # This unfortunately includes changes such as array(...,..., true) into array(...,..., false)
+  # and other behaviours which are very edge cases
+  #
   # infection:
   #   name: "3️⃣ PHP: Mutation testing"
   #   runs-on: "ubuntu-latest"
