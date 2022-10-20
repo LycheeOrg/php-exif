@@ -164,29 +164,31 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v1
 
-  infection:
-    name: "3️⃣ PHP: Mutation testing"
-    runs-on: "ubuntu-latest"
-    needs:
-    - "tests"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # support for mutation testing.
+  #
+  # infection:
+  #   name: "3️⃣ PHP: Mutation testing"
+  #   runs-on: "ubuntu-latest"
+  #   needs:
+  #   - "tests"
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Set Up Imagick, FFmpeg & Exiftools
-        run: |
-          sudo apt-get update
-          sudo apt-get --fix-broken install
-          sudo apt-get -y install ffmpeg libimage-exiftool-perl libmagickwand-dev
+  #     - name: Set Up Imagick, FFmpeg & Exiftools
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get --fix-broken install
+  #         sudo apt-get -y install ffmpeg libimage-exiftool-perl libmagickwand-dev
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@2.15.0
-        with:
-          php-version: "latest"
-          coverage: xdebug
+  #     - name: Setup PHP
+  #       uses: shivammathur/setup-php@2.15.0
+  #       with:
+  #         php-version: "latest"
+  #         coverage: xdebug
 
-      - name: Install Composer dependencies
-        uses: "ramsey/composer-install@v2"
+  #     - name: Install Composer dependencies
+  #       uses: "ramsey/composer-install@v2"
 
-      - name: Run Infection
-        run: vendor/bin/infection
+  #     - name: Run Infection
+  #       run: vendor/bin/infection

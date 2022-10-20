@@ -104,14 +104,9 @@ class Exiftool extends AdapterAbstract
             try {
                 // Do not use "which": not available on sh
                 $path = exec('command -v ' . self::TOOL_NAME);
-            } catch (ExecException) {
-                // @codeCoverageIgnoreStart
-                $path = false;
-                // @codeCoverageIgnoreEnd
-            }
-            if ($path !== false) {
-                // $path = exec('which ' . self::TOOL_NAME);
                 $this->setToolPath($path);
+            } catch (ExecException) {
+                // Do nothing
             }
         }
 
