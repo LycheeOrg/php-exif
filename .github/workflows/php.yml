@@ -172,7 +172,7 @@ jobs:
   # improvements to the full code base.
   #
   # TODO: This section can be uncommented once ALL the code paths are evaluted.
-  # This unfortunately includes changes such as array(...,..., true) into array(...,..., false)
+  # This unfortunately includes changes such as in_array(...,..., true) into in_array(...,..., false)
   # and other behaviours which are very edge cases
   #
   # infection:
