@@ -25,7 +25,7 @@ use function Safe\preg_replace;
  * @category    PHPExif
  * @package     Mapper
  */
-class Native implements MapperInterface
+class Native extends MapperAbstract
 {
     const APERTUREFNUMBER  = 'ApertureFNumber';
     const ARTIST           = 'Artist';
@@ -61,7 +61,7 @@ class Native implements MapperInterface
     const LENS             = 'LensInfo';
     const LENS_LR          = 'UndefinedTag:0xA434';
     const LENS_TYPE        = 'LensType';
-    const DESCRIPTION      = 'caption';
+    const DESCRIPTION      = 'ImageDescription';
     const SUBJECT          = 'subject';
     const FRAMERATE        = 'framerate';
     const DURATION         = 'duration';
@@ -172,9 +172,7 @@ class Native implements MapperInterface
             }
 
             $key = $this->map[$field];
-            if (is_string($value)) {
-                $value = trim($value);
-            }
+            $value = $this->trim($value);
 
             // manipulate the value if necessary
             switch ($field) {
