@@ -83,6 +83,8 @@ class ImageMagick extends AdapterAbstract
         }
 
         $data = array_merge($data_exif, $data_iptc, $additional_data);
+        // Force UTF8 encoding
+        $data = $this->convertToUTF8($data);
 
         // map the data:
         $mapper = $this->getMapper();

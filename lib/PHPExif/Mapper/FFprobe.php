@@ -24,7 +24,7 @@ use function Safe\preg_match;
  * @category    PHPExif
  * @package     Mapper
  */
-class FFprobe implements MapperInterface
+class FFprobe extends MapperAbstract
 {
     const HEIGHT           = 'height';
     const WIDTH            = 'width';
@@ -114,6 +114,7 @@ class FFprobe implements MapperInterface
             }
 
             $key = $this->map[$field];
+            $value = $this->trim($value);
 
             // manipulate the value if necessary
             switch ($field) {
