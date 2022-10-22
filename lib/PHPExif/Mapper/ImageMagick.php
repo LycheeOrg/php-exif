@@ -26,13 +26,15 @@ use function Safe\preg_split;
  * @category    PHPExif
  * @package     Mapper
  */
-class ImageMagick implements MapperInterface
+class ImageMagick extends MapperAbstract
 {
     const APERTURE                 = 'exif:FNumber';
+    const ARTIST                   = 'exif:Artist';
     const COLORSPACE               = 'exif:ColorSpace';
+    const COPYRIGHT                = 'exif:Copyright';
     const CREATION_DATE            = 'date:create';
     const DATETIMEORIGINAL         = 'exif:DateTimeOriginal';
-    const DESCRIPTION              = 'exif:ImageDescription ';
+    const DESCRIPTION              = 'exif:ImageDescription';
     const EXPOSURETIME             = 'exif:ExposureTime';
     const FILESIZE                 = 'filesize';
     const FILENAME                 = 'filename';
@@ -58,7 +60,7 @@ class ImageMagick implements MapperInterface
     const YRESOLUTION              = 'exif:YResolution';
     const TITLE                    = 'iptc:title';
     const KEYWORDS                 = 'iptc:keywords';
-    const COPYRIGHT                = 'iptc:copyright';
+    const COPYRIGHT_IPTC           = 'iptc:copyright';
     const CAPTION                  = 'iptc:caption';
     const HEADLINE                 = 'iptc:headline';
     const CREDIT                   = 'iptc:credit';
@@ -78,7 +80,9 @@ class ImageMagick implements MapperInterface
      */
     protected array $map = array(
         self::APERTURE                 => Exif::APERTURE,
+        self::ARTIST                   => Exif::AUTHOR,
         self::COLORSPACE               => Exif::COLORSPACE,
+        self::COPYRIGHT                => Exif::COPYRIGHT,
         self::CREATION_DATE            => Exif::CREATION_DATE,
         self::DATETIMEORIGINAL         => Exif::CREATION_DATE,
         self::DESCRIPTION              => Exif::DESCRIPTION,
@@ -107,7 +111,7 @@ class ImageMagick implements MapperInterface
         self::YRESOLUTION              => Exif::VERTICAL_RESOLUTION,
         self::TITLE                    => Exif::TITLE,
         self::KEYWORDS                 => Exif::KEYWORDS,
-        self::COPYRIGHT                => Exif::COPYRIGHT,
+        self::COPYRIGHT_IPTC           => Exif::COPYRIGHT,
         self::CAPTION                  => Exif::CAPTION,
         self::HEADLINE                 => Exif::HEADLINE,
         self::CREDIT                   => Exif::CREDIT,
@@ -139,6 +143,7 @@ class ImageMagick implements MapperInterface
             }
 
             $key = $this->map[$field];
+            $value = $this->trim($value);
 
             // manipulate the value if necessary
             switch ($field) {
