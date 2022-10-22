@@ -287,7 +287,7 @@ class FFprobe extends MapperAbstract
         if ($sign === '-') {
             $decimal = -1.0 * $decimal;
         }
-        return $decimal;
+        return round($decimal, self::ROUNDING_PRECISION);
     }
 
     /**

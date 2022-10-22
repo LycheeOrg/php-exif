@@ -391,13 +391,13 @@ class Exiftool extends MapperAbstract
     /**
      * Extract GPS coordinates from formatted string
      *
-     * @param string $coordinates
+     * @param mixed $coordinates
      * @return float|false
      */
-    protected function extractGPSCoordinates(string $coordinates): float|false
+    protected function extractGPSCoordinates(mixed $coordinates): float|false
     {
         if (is_numeric($coordinates) === true || $this->numeric === true) {
-            return ((float) $coordinates);
+            return round(floatval($coordinates), self::ROUNDING_PRECISION);
         } else {
             if (preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches) === 0) {
                 return false;

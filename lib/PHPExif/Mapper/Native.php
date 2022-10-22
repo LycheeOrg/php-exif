@@ -363,7 +363,7 @@ class Native extends MapperAbstract
             return false;
         }
         $flip = ($ref === 'W' || $ref === 'S') ? -1 : 1;
-        return $flip * ($degrees + (float) $minutes / 60 + (float) $seconds / 3600);
+        return round($flip * ($degrees + (float) $minutes / 60 + (float) $seconds / 3600), self::ROUNDING_PRECISION);
     }
 
     /**
