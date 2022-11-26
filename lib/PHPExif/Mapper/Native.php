@@ -16,7 +16,7 @@ use function Safe\preg_replace;
  * @category    PHPExif
  * @package     Mapper
  */
-class Native extends MapperAbstract
+class Native extends AbstractMapper
 {
     const APERTUREFNUMBER  = 'ApertureFNumber';
     const ARTIST           = 'Artist';

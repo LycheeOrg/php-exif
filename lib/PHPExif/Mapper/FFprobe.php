@@ -15,7 +15,7 @@ use function Safe\preg_match;
  * @category    PHPExif
  * @package     Mapper
  */
-class FFprobe extends MapperAbstract
+class FFprobe extends AbstractMapper
 {
     const HEIGHT           = 'height';
     const WIDTH            = 'width';

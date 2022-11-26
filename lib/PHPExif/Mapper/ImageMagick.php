@@ -17,7 +17,7 @@ use function Safe\preg_split;
  * @category    PHPExif
  * @package     Mapper
  */
-class ImageMagick extends MapperAbstract
+class ImageMagick extends AbstractMapper
 {
     const APERTURE                 = 'exif:FNumber';
     const ARTIST                   = 'exif:Artist';

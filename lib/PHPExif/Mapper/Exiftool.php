@@ -25,7 +25,7 @@ use function Safe\preg_replace;
  * @category    PHPExif
  * @package     Mapper
  */
-class Exiftool extends MapperAbstract
+class Exiftool extends AbstractMapper
 {
     public const APERTURE                 = 'Composite:Aperture';
     public const APPROXIMATEFOCUSDISTANCE = 'XMP-aux:ApproximateFocusDistance';
