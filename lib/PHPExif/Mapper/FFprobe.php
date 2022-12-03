@@ -171,7 +171,11 @@ class FFprobe extends AbstractMapper
 
         // add GPS coordinates, if available
         if ((isset($mappedData[Exif::LATITUDE])) && (isset($mappedData[Exif::LONGITUDE]))) {
-            $mappedData[Exif::GPS] = sprintf('%s,%s', (string) $mappedData[Exif::LATITUDE], (string) $mappedData[Exif::LONGITUDE]);
+            $mappedData[Exif::GPS] = sprintf(
+                '%s,%s',
+                (string) $mappedData[Exif::LATITUDE],
+                (string) $mappedData[Exif::LONGITUDE]
+            );
         }
 
         // Swap width and height if needed
