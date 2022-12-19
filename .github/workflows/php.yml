@@ -101,15 +101,6 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
-        beta:
-            - "beta"
-            - ""
-        exclude:
-          - beta: "beta"
-            dependencies: "locked"
-          - beta: "beta"
-            dependencies: "lowest"
-
     env:
       extensions: curl, dom, imagick, json, libxml, mbstring
 
