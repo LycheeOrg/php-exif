@@ -90,7 +90,7 @@ jobs:
         run: vendor/bin/phpstan analyze
 
   tests:
-    name: "2️⃣ PHP ${{ matrix.php-version }}: ${{ matrix.beta }} ${{ matrix.dependencies }}"
+    name: "2️⃣ PHP ${{ matrix.php-version }}: Tests"
     needs:
       - "php_syntax_errors"
     runs-on: "ubuntu-latest"
