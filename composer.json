@@ -69,6 +69,9 @@
         ],
         "phpstan": [
             "vendor/bin/phpstan analyze"
+        ],
+        "fix-code-style": [
+            "vendor/bin/phpcbf --standard=PSR2 ./lib/"
         ]
     },
     "config": {
