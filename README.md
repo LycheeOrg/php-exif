@@ -45,6 +45,16 @@ Have a bug or a feature request? [Please open a new issue](https://github.com/Ly
 
 ## Contributors
 
+* [ildyria](https://github.com/ildyria)
+* [d7415](https://github.com/d7415)
+* [kamil4](https://github.com/kamil4)
+* [nagmat84](https://github.com/nagmat84)
+* [qwerty287](https://github.com/qwerty287)
+
+#### Past Contributors
+
+Thank you for your help!
+
 * [Tom Van Herreweghe](http://github.com/Miljar)
 * [Ingewikkeld](https://github.com/Ingewikkeld)
 * [Christophe Singer](https://github.com/wasinger)
@@ -53,10 +63,8 @@ Have a bug or a feature request? [Please open a new issue](https://github.com/Ly
 * [Marek Szymczuk](https://github.com/bonzai)
 * [Scott Pringle](https://github.com/Luciam91)
 * [tmp-hallenser](https://github.com/tmp-hallenser)
-* [kamil4](https://github.com/kamil4)
-* [ildyria](https://github.com/ildyria)
-* [nagmat84](https://github.com/nagmat84)
-* [qwerty287](https://github.com/qwerty287)
+* [icager](https://github.com/icager)
+
 
 ## License
 
