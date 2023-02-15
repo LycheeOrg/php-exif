@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94b34f79d0790b77ba3d472663af5036",
+    "content-hash": "10d74c77b9562b784759445460fcb3b9",
     "packages": [
         {
             "name": "evenement/evenement",
@@ -2001,16 +2001,16 @@
         },
         {
             "name": "lychee-org/phpstan-lychee",
-            "version": "dev-update-morerules",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LycheeOrg/phpstan-lychee.git",
-                "reference": "ba0fcf11db7d48875dec14acda6ce8b7c1108549"
+                "reference": "08a1195357e5c74194227bda26f0322928da3a77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LycheeOrg/phpstan-lychee/zipball/ba0fcf11db7d48875dec14acda6ce8b7c1108549",
-                "reference": "ba0fcf11db7d48875dec14acda6ce8b7c1108549",
+                "url": "https://api.github.com/repos/LycheeOrg/phpstan-lychee/zipball/08a1195357e5c74194227bda26f0322928da3a77",
+                "reference": "08a1195357e5c74194227bda26f0322928da3a77",
                 "shasum": ""
             },
             "require": {
@@ -2043,10 +2043,10 @@
             ],
             "description": "Set of rules for all Lychee related php repo",
             "support": {
-                "source": "https://github.com/LycheeOrg/phpstan-lychee/tree/update-morerules",
+                "source": "https://github.com/LycheeOrg/phpstan-lychee/tree/v1.0.1",
                 "issues": "https://github.com/LycheeOrg/phpstan-lychee/issues"
             },
-            "time": "2023-02-15T11:52:44+00:00"
+            "time": "2023-02-15T15:20:25+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6142,9 +6142,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "lychee-org/phpstan-lychee": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
