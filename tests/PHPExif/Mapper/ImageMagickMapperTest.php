@@ -9,7 +9,7 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->mapper = new ImageMagick;
+        $this->mapper = new ImageMagick();
     }
 
     /**
@@ -170,7 +170,7 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
     {
-        $data = array (
+        $data = array(
           array(
             ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
           ),
@@ -520,17 +520,17 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
         public function testMapRawDataCorrectlyHeightPNG()
         {
 
-          $rawData = array(
-              '600'  => array(
-                                ImageMagick::IMAGEHEIGHT_PNG  => '800, 600',
-                            ),
-          );
+            $rawData = array(
+                '600'  => array(
+                                  ImageMagick::IMAGEHEIGHT_PNG  => '800, 600',
+                              ),
+            );
 
-          foreach ($rawData as $expected => $value) {
-              $mapped = $this->mapper->mapRawData($value);
+            foreach ($rawData as $expected => $value) {
+                $mapped = $this->mapper->mapRawData($value);
 
-              $this->assertEquals($expected, $mapped['height']);
-          }
+                $this->assertEquals($expected, $mapped['height']);
+            }
         }
 
 
@@ -541,17 +541,17 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
       public function testMapRawDataCorrectlyWidthPNG()
       {
 
-        $rawData = array(
-            '800'  => array(
-                              ImageMagick::IMAGEWIDTH_PNG  => '800, 600',
-                          ),
-        );
+          $rawData = array(
+              '800'  => array(
+                                ImageMagick::IMAGEWIDTH_PNG  => '800, 600',
+                            ),
+          );
 
-        foreach ($rawData as $expected => $value) {
-            $mapped = $this->mapper->mapRawData($value);
+          foreach ($rawData as $expected => $value) {
+              $mapped = $this->mapper->mapRawData($value);
 
-            $this->assertEquals($expected, $mapped['width']);
-        }
+              $this->assertEquals($expected, $mapped['width']);
+          }
       }
 
       /**

@@ -690,6 +690,7 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                     break;
                 case 'focalDistance':
                     $setter = 'setFocusDistance';
+                    // no break
                 default:
                     $this->exif->$setter($expected);
                     $propertyValue = $reflProp->getValue($this->exif);

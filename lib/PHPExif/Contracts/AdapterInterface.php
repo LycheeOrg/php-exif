@@ -25,5 +25,5 @@ interface AdapterInterface
      * @return Exif Instance of Exif object with data
      * @throws PhpExifReaderException If the EXIF data could not be read
      */
-    public function getExifFromFile(string $file) : Exif;
+    public function getExifFromFile(string $file): Exif;
 }

@@ -56,7 +56,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
             ->with($this->equalTo($input['bar']));
 
         // do the test
-        $hydrator = new Mutator;
+        $hydrator = new Mutator();
         $hydrator->hydrate($mock, $input);
     }
 
@@ -82,7 +82,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
             ->method('setBar');
 
         // do the test
-        $hydrator = new Mutator;
+        $hydrator = new Mutator();
         $hydrator->hydrate($mock, $input);
     }
 }

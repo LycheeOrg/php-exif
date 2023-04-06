@@ -9,6 +9,7 @@ use PHPExif\Reader\PhpExifReaderException;
 use Safe\Exceptions\ExecException;
 
 use Safe\Exceptions\JsonException;
+
 use function Safe\exec;
 use function Safe\json_decode;
 use function Safe\stream_get_contents;
@@ -24,7 +25,7 @@ use function Safe\fclose;
  */
 class Exiftool extends AbstractAdapter
 {
-    const TOOL_NAME = 'exiftool';
+    public const TOOL_NAME = 'exiftool';
 
     /**
      * Path to the exiftool binary
@@ -41,7 +42,7 @@ class Exiftool extends AbstractAdapter
      * @return \PHPExif\Adapter\Exiftool Current instance
      * @throws \InvalidArgumentException When path is invalid
      */
-    public function setToolPath(string $path) : Exiftool
+    public function setToolPath(string $path): Exiftool
     {
         if (!file_exists($path)) {
             throw new InvalidArgumentException(
@@ -60,7 +61,7 @@ class Exiftool extends AbstractAdapter
     /**
      * @param boolean $numeric
      */
-    public function setNumeric(bool $numeric) : void
+    public function setNumeric(bool $numeric): void
     {
         $this->numeric = $numeric;
     }
@@ -69,7 +70,7 @@ class Exiftool extends AbstractAdapter
      * @see  http://www.sno.phy.queensu.ca/~phil/exiftool/faq.html#Q10
      * @param array $encodings encoding parameters in an array eg. ["exif" => "UTF-8"]
      */
-    public function setEncoding(array $encodings) : void
+    public function setEncoding(array $encodings): void
     {
         $possible_keys = array("exif", "iptc", "id3", "photoshop", "quicktime",);
         $possible_values = array("UTF8", "cp65001", "UTF-8", "Thai", "cp874", "Latin", "cp1252",
@@ -91,7 +92,7 @@ class Exiftool extends AbstractAdapter
      *
      * @return string
      */
-    public function getToolPath() : string
+    public function getToolPath(): string
     {
         if ($this->toolPath === '') {
             try {
@@ -113,7 +114,7 @@ class Exiftool extends AbstractAdapter
      * @return Exif Instance of Exif object with data
      * @throws PhpExifReaderException If the EXIF data could not be read
      */
-    public function getExifFromFile(string $file) : Exif
+    public function getExifFromFile(string $file): Exif
     {
         $encoding = '';
         if (count($this->encoding) > 0) {
@@ -178,7 +179,7 @@ class Exiftool extends AbstractAdapter
      * @return string|false
      * @throws PhpExifReaderException If the command can't be executed
      */
-    protected function getCliOutput(string $command) : string|false
+    protected function getCliOutput(string $command): string|false
     {
         $descriptorspec = array(
             0 => array('pipe', 'r'),

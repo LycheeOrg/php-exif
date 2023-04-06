@@ -9,7 +9,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->mapper = new Native;
+        $this->mapper = new Native();
     }
 
     /**
@@ -475,7 +475,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testMapRawDataCorrectlyLensData()
     {
-        $data = array (
+        $data = array(
             array(
                 Native::LENS => 'LEICA DG 12-60/F2.8-4.0',
             ),
@@ -509,7 +509,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testMapRawDataCorrectlyLensData2()
     {
-        $data = array (
+        $data = array(
             array(
                 Native::LENS_LR => 'LUMIX G VARIO 12-32/F3.5-5.6',
             ),

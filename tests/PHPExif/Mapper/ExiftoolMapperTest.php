@@ -9,7 +9,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->mapper = new Exiftool;
+        $this->mapper = new Exiftool();
     }
 
     /**
