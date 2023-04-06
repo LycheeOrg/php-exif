@@ -23,18 +23,12 @@ use PHPExif\Enum\ReaderType;
 class Reader implements ReaderInterface
 {
     /**
-     * The current adapter
-     */
-    protected readonly AdapterInterface $adapter;
-
-    /**
      * Reader constructor
      *
      * @param AdapterInterface $adapter
      */
     public function __construct(protected readonly AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
     }
 
     /**
