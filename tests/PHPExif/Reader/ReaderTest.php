@@ -11,31 +11,16 @@ use PHPExif\Reader\Reader;
 class ReaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPExif\Reader\Reader
-     */
-    protected Reader $reader;
-
-    /**
-     * Setup function before the tests
-     */
-    public function setUp() : void
-    {
-        /** @var AdapterInterface $adapter */
-        $adapter = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
-        $this->reader = new \PHPExif\Reader\Reader($adapter);
-    }
-
-    /**
      * @group reader
      */
     public function testConstructorWithAdapter()
     {
-        /** @var AdapterInterface */
+        /** @var AdapterInterface $mock */
         $mock = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
 
-        $reader = new \PHPExif\Reader\Reader($mock);
+        $reader = new Reader($mock);
 
         $this->assertSame($mock, $reflProperty->getValue($reader));
     }
@@ -47,12 +32,8 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     {
         $adapter = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
         $adapter->expects($this->once())->method('getExifFromFile');
-
-        $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
-        $reflProperty->setValue($this->reader, $adapter);
-
-        $this->reader->read('/tmp/foo.bar');
+        $reader = new Reader($adapter);
+        $reader->read('/tmp/foo.bar');
     }
 
     /**
@@ -61,7 +42,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     public function testFactoryThrowsException()
     {
         $this->expectException('TypeError');
-        \PHPExif\Reader\Reader::factory('foo');
+        Reader::factory('foo');
     }
 
     /**
@@ -69,7 +50,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFactoryReturnsCorrectType()
     {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Enum\ReaderType::NATIVE);
+        $reader = Reader::factory(\PHPExif\Enum\ReaderType::NATIVE);
 
         $this->assertInstanceOf(Reader::class, $reader);
     }
@@ -79,7 +60,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFactoryAdapterTypeNative()
     {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Enum\ReaderType::NATIVE);
+        $reader = Reader::factory(\PHPExif\Enum\ReaderType::NATIVE);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
 
@@ -93,7 +74,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFactoryAdapterTypeExiftool()
     {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Enum\ReaderType::EXIFTOOL);
+        $reader = Reader::factory(\PHPExif\Enum\ReaderType::EXIFTOOL);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
 
@@ -107,7 +88,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFactoryAdapterTypeFFprobe()
     {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Enum\ReaderType::FFPROBE);
+        $reader = Reader::factory(\PHPExif\Enum\ReaderType::FFPROBE);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
 
@@ -122,7 +103,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testFactoryAdapterTypeImageMagick()
     {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Enum\ReaderType::IMAGICK);
+        $reader = Reader::factory(\PHPExif\Enum\ReaderType::IMAGICK);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
 
