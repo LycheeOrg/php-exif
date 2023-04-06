@@ -32,7 +32,7 @@ class Reader implements ReaderInterface
      *
      * @param AdapterInterface $adapter
      */
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(protected readonly AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
     }
