@@ -5,9 +5,10 @@ namespace PHPExif\Adapter;
 use PHPExif\Exif;
 use InvalidArgumentException;
 use PHPExif\Mapper\Exiftool as MapperExiftool;
-use RuntimeException;
+use PHPExif\Reader\PhpExifReaderException;
 use Safe\Exceptions\ExecException;
 
+use Safe\Exceptions\JsonException;
 use function Safe\exec;
 use function Safe\json_decode;
 use function Safe\stream_get_contents;
@@ -109,8 +110,8 @@ class Exiftool extends AbstractAdapter
      * Reads & parses the EXIF data from given file
      *
      * @param string $file
-     * @return \PHPExif\Exif Instance of Exif object with data
-     * @throws \RuntimeException If the EXIF data could not be read
+     * @return Exif Instance of Exif object with data
+     * @throws PhpExifReaderException If the EXIF data could not be read
      */
     public function getExifFromFile(string $file) : Exif
     {
@@ -136,14 +137,18 @@ class Exiftool extends AbstractAdapter
         );
 
         /**
-         * @var string
+         * @var string $result
          */
         $result = $this->convertToUTF8($result);
 
-        $data = json_decode($result, true);
+        try {
+            $data = json_decode($result, true);
+        } catch (JsonException $e) {
+            $data = false;
+        }
         if (!is_array($data)) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(
+            throw new PhpExifReaderException(
                 'Could not decode exiftool output'
             );
             // @codeCoverageIgnoreEnd
@@ -171,7 +176,7 @@ class Exiftool extends AbstractAdapter
      *
      * @param string $command
      * @return string|false
-     * @throws RuntimeException If the command can't be executed
+     * @throws PhpExifReaderException If the command can't be executed
      */
     protected function getCliOutput(string $command) : string|false
     {
@@ -184,7 +189,7 @@ class Exiftool extends AbstractAdapter
         $process = proc_open($command, $descriptorspec, $pipes);
 
         if (!is_resource($process)) {
-            throw new RuntimeException(
+            throw new PhpExifReaderException(
                 'Could not open a resource to the exiftool binary'
             );
         }
