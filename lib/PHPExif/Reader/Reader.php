@@ -66,15 +66,4 @@ class Reader implements ReaderInterface
     {
         return $this->adapter->getExifFromFile($file);
     }
-
-    /**
-     * alias to read method
-     *
-     * @param string $file
-     * @return Exif Instance of Exif object with data
-     */
-    public function getExifFromFile(string $file): Exif
-    {
-        return $this->read($file);
-    }
 }

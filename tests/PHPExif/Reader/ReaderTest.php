@@ -111,27 +111,4 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf(ImageMagick::class, $adapter);
     }
-
-    /**
-     * @group reader
-     */
-    public function testGetExifFromFileCallsReadMethod()
-    {
-        /** @var MockObject<Reader> $mock */
-        $mock = $this->getMockBuilder(Reader::class)
-            ->onlyMethods(array('read'))
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $expected = '/foo/bar/baz';
-        $expectedResult = new Exif([]);
-
-        $mock->expects($this->once())
-            ->method('read')
-            ->with($this->equalTo($expected))
-            ->will($this->returnValue($expectedResult));
-
-        $result = $mock->getExifFromFile($expected);
-        $this->assertEquals($expectedResult, $result);
-    }
 }
