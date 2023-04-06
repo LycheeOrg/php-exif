@@ -145,7 +145,9 @@ class Exiftool extends AbstractAdapter
         try {
             $data = json_decode($result, true);
         } catch (JsonException $e) {
+            // @codeCoverageIgnoreStart
             $data = false;
+            // @codeCoverageIgnoreStart
         }
         if (!is_array($data)) {
             // @codeCoverageIgnoreStart
