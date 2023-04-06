@@ -10,7 +10,6 @@ use PHPExif\Reader\Reader;
 
 /**
  * @covers \PHPExif\Reader\Reader::<!public>
- * @covers \PHPExif\Adapter\NoAdapterException
  */
 class ReaderTest extends \PHPUnit\Framework\TestCase
 {
@@ -24,7 +23,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function setUp() : void
     {
-        /** @var \PHPExif\Contracts\AdapterInterface */
+        /** @var AdapterInterface $adapter */
         $adapter = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
         $this->reader = new \PHPExif\Reader\Reader($adapter);
     }
@@ -35,7 +34,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstructorWithAdapter()
     {
-        /** @var \PHPExif\Contracts\AdapterInterface */
+        /** @var AdapterInterface */
         $mock = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
         $reflProperty->setAccessible(true);
@@ -43,36 +42,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
         $reader = new \PHPExif\Reader\Reader($mock);
 
         $this->assertSame($mock, $reflProperty->getValue($reader));
-    }
-
-    /**
-     * @group reader
-     * @covers \PHPExif\Reader\Reader::getAdapter
-     */
-    public function testGetAdapterFromProperty()
-    {
-        $mock = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
-
-        $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
-        $reflProperty->setValue($this->reader, $mock);
-
-        $this->assertSame($mock, $this->reader->getAdapter());
-    }
-
-    /**
-     * @group reader
-     * @covers \PHPExif\Reader\Reader::getAdapter
-     * @covers \PHPExif\Adapter\NoAdapterException
-     */
-    public function testGetAdapterThrowsExceptionWhenNoAdapterIsSet()
-    {
-        $this->expectException('\PHPExif\Adapter\NoAdapterException');
-        $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
-        $reflProperty->setValue($this->reader, null);
-
-        $this->reader->getAdapter();
     }
 
     /**

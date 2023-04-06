@@ -2,7 +2,6 @@
 
 namespace PHPExif\Reader;
 
-use PHPExif\Adapter\NoAdapterException;
 use PHPExif\Adapter\Exiftool as ExiftoolAdapter;
 use PHPExif\Adapter\FFprobe as FFprobeAdapter;
 use PHPExif\Adapter\ImageMagick as ImageMagickAdapter;
@@ -26,31 +25,16 @@ class Reader implements ReaderInterface
     /**
      * The current adapter
      */
-    protected ?AdapterInterface $adapter = null;
+    protected readonly AdapterInterface $adapter;
 
     /**
      * Reader constructor
      *
-     * @param \PHPExif\Contracts\AdapterInterface $adapter
+     * @param AdapterInterface $adapter
      */
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
-    }
-
-    /**
-     * Getter for the reader adapter
-     *
-     * @return \PHPExif\Contracts\AdapterInterface
-     * @throws NoAdapterException When no adapter is set
-     */
-    public function getAdapter(): AdapterInterface
-    {
-        if ($this->adapter === null) {
-            throw new NoAdapterException('No adapter set in the reader');
-        }
-
-        return $this->adapter;
     }
 
     /**
@@ -76,18 +60,18 @@ class Reader implements ReaderInterface
      * Reads & parses the EXIF data from given file
      *
      * @param string $file
-     * @return \PHPExif\Exif Instance of Exif object with data
+     * @return Exif Instance of Exif object with data
      */
     public function read(string $file): Exif
     {
-        return $this->getAdapter()->getExifFromFile($file);
+        return $this->adapter->getExifFromFile($file);
     }
 
     /**
      * alias to read method
      *
      * @param string $file
-     * @return \PHPExif\Exif Instance of Exif object with data
+     * @return Exif Instance of Exif object with data
      */
     public function getExifFromFile(string $file): Exif
     {
