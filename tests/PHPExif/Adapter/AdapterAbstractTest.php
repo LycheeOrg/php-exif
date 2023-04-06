@@ -4,9 +4,6 @@ use PHPExif\Adapter\AbstractAdapter;
 use PHPExif\Adapter\Exiftool;
 use PHPExif\Adapter\Native;
 
-/**
- * @covers \PHPExif\Adapter\AbstractAdapter::<!public>
- */
 class AbstractAdapterTest extends PHPUnit\Framework\TestCase
 {
     /**

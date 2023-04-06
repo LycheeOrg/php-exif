@@ -3,15 +3,12 @@
 use PHPExif\Adapter\ImageMagick;
 use PHPExif\Exif;
 
-/**
- * @covers ImageMagick::<!public>
- */
 class ImageMagickTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ImageMagick
      */
-    protected $adapter;
+    protected ImageMagick $adapter;
 
     public function setUp(): void
     {

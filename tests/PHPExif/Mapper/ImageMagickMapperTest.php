@@ -3,9 +3,6 @@
 use PHPExif\Contracts\MapperInterface;
 use PHPExif\Mapper\ImageMagick;
 
-/**
- * @covers ImageMagick::<!public>
- */
 class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $mapper;

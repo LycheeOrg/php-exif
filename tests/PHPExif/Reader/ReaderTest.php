@@ -8,9 +8,6 @@ use PHPExif\Contracts\AdapterInterface;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 
-/**
- * @covers \PHPExif\Reader\Reader::<!public>
- */
 class ReaderTest extends \PHPUnit\Framework\TestCase
 {
     /**

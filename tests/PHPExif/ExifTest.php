@@ -1,9 +1,7 @@
 <?php
 
 use PHPExif\Exif;
-/**
- * @covers Exif::<!public>
- */
+
 class ExifTest extends \PHPUnit\Framework\TestCase
 {
     /**

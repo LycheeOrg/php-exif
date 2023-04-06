@@ -2,15 +2,12 @@
 
 use PHPExif\Adapter\Native;
 
-/**
- * @covers Native::<!public>
- */
 class NativeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Native
      */
-    protected $adapter;
+    protected Native $adapter;
 
     public function setUp(): void
     {

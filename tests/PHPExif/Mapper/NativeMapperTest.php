@@ -3,9 +3,6 @@
 use PHPExif\Contracts\MapperInterface;
 use PHPExif\Mapper\Native;
 
-/**
- * @covers Native::<!public>
- */
 class NativeMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $mapper;

@@ -3,9 +3,6 @@
 use PHPExif\Contracts\MapperInterface;
 use PhpExif\Mapper\Exiftool;
 
-/**
- * @covers Exiftool::<!public>
- */
 class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $mapper;

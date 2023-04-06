@@ -2,9 +2,6 @@
 
 use PHPExif\Adapter\Exiftool;
 
-/**
- * @covers Exiftool::<!public>
- */
 class ExiftoolTest extends \PHPUnit\Framework\TestCase
 {
     protected Exiftool $adapter;

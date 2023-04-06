@@ -4,9 +4,6 @@ use FFMpeg\FFProbe as FFMpegFFProbe;
 use PHPExif\Contracts\MapperInterface;
 use PHPExif\Mapper\FFprobe;
 
-/**
- * @covers FFprobe::<!public>
- */
 class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $mapper;

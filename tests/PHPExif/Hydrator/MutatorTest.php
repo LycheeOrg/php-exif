@@ -2,9 +2,6 @@
 
 use PhpExif\Hydrator\Mutator;
 
-/**
- * @covers Mutator::<!public>
- */
 class MutatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
