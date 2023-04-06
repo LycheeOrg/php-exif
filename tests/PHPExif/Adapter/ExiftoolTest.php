@@ -13,7 +13,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::getToolPath
      */
     public function testGetToolPathFromProperty()
     {
@@ -27,7 +26,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::setToolPath
      */
     public function testSetToolPathInProperty()
     {
@@ -42,7 +40,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::setToolPath
      */
     public function testSetToolPathThrowsException()
     {
@@ -53,7 +50,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::getToolPath
      */
     public function testGetToolPathLazyLoadsPath()
     {
@@ -62,7 +58,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::setNumeric
      */
     public function testSetNumericInProperty()
     {
@@ -78,7 +73,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     /**
      * @see URI http://www.sno.phy.queensu.ca/~phil/exiftool/faq.html#Q10
      * @group exiftool
-     * @covers Exiftool::setEncoding
      */
     public function testSetEncodingInProperty()
     {
@@ -94,7 +88,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::getExifFromFile
      */
     public function testGetExifFromFile()
     {
@@ -108,7 +101,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::getExifFromFile
      */
     public function testGetExifFromFileWithUtf8()
     {
@@ -122,7 +114,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group exiftool
-     * @covers Exiftool::getCliOutput
      */
     public function testGetCliOutput()
     {

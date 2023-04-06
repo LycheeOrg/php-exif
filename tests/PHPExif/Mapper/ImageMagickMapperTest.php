@@ -22,7 +22,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataIgnoresFieldIfItDoesntExist()
     {
@@ -34,7 +33,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataMapsFieldsCorrectly()
     {
@@ -75,7 +73,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsAperture()
     {
@@ -90,7 +87,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDate()
     {
@@ -110,7 +106,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsDateTimeOriginal()
     {
@@ -130,7 +125,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateAndDateTimeOriginal1()
     {
@@ -152,7 +146,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateAndDateTimeOriginal2()
     {
@@ -174,7 +167,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
     {
@@ -215,7 +207,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
     {
@@ -244,7 +235,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectCreationDate()
     {
@@ -260,7 +250,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal()
     {
@@ -275,7 +264,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectTimeZone()
     {
@@ -296,7 +284,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsExposureTime()
     {
@@ -318,7 +305,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsFocalLength()
     {
@@ -333,7 +319,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsGPSData()
     {
@@ -356,7 +341,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataIncorrectlyFormatedGPSData()
     {
@@ -373,7 +357,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsNumericGPSData()
     {
@@ -397,7 +380,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataOnlyLatitude()
     {
@@ -413,7 +395,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresEmptyGPSData()
     {
@@ -467,7 +448,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyAltitude()
     {
@@ -483,7 +463,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyNegativeAltitude()
     {
@@ -499,7 +478,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectAltitude()
     {
@@ -515,8 +493,7 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
         /**
          * @group mapper
-         * @covers ImageMagick::mapRawData
-         */
+             */
         public function testMapRawDataCorrectlyIsoFormats()
         {
             $expected = array(
@@ -539,8 +516,7 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
         /**
          * @group mapper
-         * @covers ImageMagick::mapRawData
-         */
+             */
         public function testMapRawDataCorrectlyHeightPNG()
         {
 
@@ -561,8 +537,7 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
       /**
        * @group mapper
-       * @covers ImageMagick::mapRawData
-       */
+         */
       public function testMapRawDataCorrectlyWidthPNG()
       {
 
@@ -581,7 +556,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
       /**
        * @group mapper
-       * @covers ImageMagick::normalizeComponent
        */
       public function testNormalizeComponentCorrectly()
       {
@@ -609,7 +583,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyKeywords()
     {
@@ -627,7 +600,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyKeywordsAndSubject()
     {
@@ -645,7 +617,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsXResolution()
     {
@@ -660,7 +631,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers ImageMagick::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsYResolution()
     {

@@ -23,7 +23,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataIgnoresFieldIfItDoesntExist()
     {
@@ -35,7 +34,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataMapsFieldsCorrectly()
     {
@@ -80,7 +78,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsDateTimeOriginal()
     {
@@ -101,7 +98,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateQuicktime()
     {
@@ -130,7 +126,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
     {
@@ -158,7 +153,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal()
     {
@@ -173,7 +167,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal2()
     {
@@ -188,7 +181,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsQuickTimeGPSData()
     {
@@ -212,7 +204,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyRotatesDimensions()
     {
@@ -234,7 +225,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFormatsGPSData()
     {
@@ -258,7 +248,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::mapRawData
      */
     public function testMapRawDataCorrectlyFramerate()
     {
@@ -314,7 +303,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::normalizeComponent
      */
     public function testNormalizeComponentCorrectly()
     {
@@ -342,7 +330,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers \PHPExif\Mapper\Native::mapRawData
      */
     public function testMapRawDataMatchesFieldsWithoutCaseSensibilityOnFirstLetter()
     {
@@ -363,7 +350,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::readISO6709
      */
     public function testreadISO6709()
     {
@@ -426,7 +412,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group mapper
-     * @covers FFprobe::convertDMStoDecimal
      */
     public function testconvertDMStoDecimal()
     {

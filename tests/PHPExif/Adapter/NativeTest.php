@@ -16,7 +16,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::setIncludeThumbnail
      */
     public function testSetIncludeThumbnailInProperty()
     {
@@ -32,7 +31,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getIncludeThumbnail
      */
     public function testGetIncludeThumbnailFromProperty()
     {
@@ -45,7 +43,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::GetIncludeThumbnail
      */
     public function testGetIncludeThumbnailHasDefaultValue()
     {
@@ -54,7 +51,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getRequiredSections
      */
     public function testGetRequiredSections()
     {
@@ -66,7 +62,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::setRequiredSections
      */
     public function testSetRequiredSections()
     {
@@ -83,7 +78,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::addRequiredSection
      */
     public function testAddRequiredSection()
     {
@@ -102,7 +96,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getExifFromFile
      */
     public function testGetExifFromFileNoData()
     {
@@ -116,7 +109,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getExifFromFile
      */
     public function testGetExifFromFileHasData()
     {
@@ -129,7 +121,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getIptcData
      */
     public function testGetIptcData()
     {
@@ -147,7 +138,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getIptcData
      */
     public function testGetEmptyIptcData()
     {
@@ -159,7 +149,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::setSectionsAsArrays
      */
     public function testSetSectionsAsArrayInProperty()
     {
@@ -173,7 +162,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::setSectionsAsArrays
      */
     public function testSetSectionsAsArrayConvertsToBoolean()
     {
@@ -187,7 +175,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group native
-     * @covers Native::getSectionsAsArrays
      */
     public function testGetSectionsAsArrayFromProperty()
     {

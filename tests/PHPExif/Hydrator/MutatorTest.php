@@ -13,7 +13,6 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group hydrator
-     * @covers Mutator::hydrate
      */
     public function testHydrateCallsDetermineMutator()
     {
@@ -39,7 +38,6 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group hydrator
-     * @covers Mutator::hydrate
      */
     public function testHydrateCallsMutatorsOnObject()
     {
@@ -64,7 +62,6 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group hydrator
-     * @covers Mutator::hydrate
      */
     public function testHydrateCallsEmptyValues()
     {

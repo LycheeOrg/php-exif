@@ -17,7 +17,6 @@ class ImageMagickTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ImageMagick
-     * @covers ImageMagick::getExifFromFile
      */
     public function testGetExifFromFile()
     {
@@ -30,7 +29,6 @@ class ImageMagickTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ImageMagick
-     * @covers ImageMagick::getIptcData
      */
     public function testGetEmptyIptcData()
     {

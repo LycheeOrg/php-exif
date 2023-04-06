@@ -27,7 +27,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::__construct
      */
     public function testConstructorWithAdapter()
     {
@@ -43,7 +42,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::read
      */
     public function testGetExifPassedToAdapter()
     {
@@ -59,7 +57,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryThrowsException()
     {
@@ -69,7 +66,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryReturnsCorrectType()
     {
@@ -80,7 +76,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryAdapterTypeNative()
     {
@@ -95,7 +90,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryAdapterTypeExiftool()
     {
@@ -110,7 +104,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryAdapterTypeFFprobe()
     {
@@ -126,7 +119,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::factory
      */
     public function testFactoryAdapterTypeImageMagick()
     {
@@ -141,7 +133,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group reader
-     * @covers \PHPExif\Reader\Reader::getExifFromFile
      */
     public function testGetExifFromFileCallsReadMethod()
     {

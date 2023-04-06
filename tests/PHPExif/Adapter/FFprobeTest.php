@@ -18,7 +18,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::getToolPath
      */
     public function testGetToolPathFromProperty()
     {
@@ -32,7 +31,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::setToolPath
      */
     public function testSetToolPathInProperty()
     {
@@ -47,7 +45,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::setToolPath
      */
     public function testSetToolPathThrowsException()
     {
@@ -57,7 +54,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::getToolPath
      */
     public function testGetToolPathLazyLoadsPath()
     {
@@ -66,7 +62,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::getExifFromFile
      */
     public function testGetExifFromFileHasData()
     {
@@ -85,7 +80,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group ffprobe
-     * @covers FFprobe::getExifFromFile
      */
     public function testErrorImageUsed()
     {
