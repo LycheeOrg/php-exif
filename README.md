@@ -1,7 +1,7 @@
 # [PHPExif](http://github.com/LycheeOrg/php-exif)
 
 [![GitHub Release][release-shield]](https://github.com/LycheeOrg/php-exif/releases)
-[![PHP 8.1 & 8.2][php-shield]](https://github.com/LycheeOrg/php-exif#installation-composer)
+[![PHP 8.2 & 8.3][php-shield]](https://github.com/LycheeOrg/php-exif#installation-composer)
 [![MIT License][license-shield]](https://github.com/LycheeOrg/php-exif/blob/master/LICENSE)  
   
 [![Build Status][build-shield]](https://github.com/LycheeOrg/php-exif/actions/workflows/php.yml)
@@ -72,7 +72,7 @@ Thank you for your help!
 
 
 [release-shield]: https://img.shields.io/github/release-pre/LycheeOrg/php-exif.svg
-[php-shield]: https://img.shields.io/badge/PHP-8.1%20|%208.2-blue
+[php-shield]: https://img.shields.io/badge/PHP-8.2%20|%208.3-blue
 [license-shield]: https://img.shields.io/github/license/LycheeOrg/Lychee.svg
 
 [build-shield]: https://github.com/LycheeOrg/php-exif/actions/workflows/php.yml/badge.svg
