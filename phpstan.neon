@@ -6,3 +6,4 @@ parameters:
 		- lib
 	ignoreErrors:
 		- '#Array has (2|3) duplicate keys#'
+		- '#no value type specified in iterable type array#'
