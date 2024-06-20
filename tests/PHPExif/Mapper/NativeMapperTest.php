@@ -93,61 +93,89 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
     }
 
 
-        /**
-         * @group mapper
-             */
-        public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
-        {
-            $rawData = array(
-                Native::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
-            );
+    /**
+     * @group mapper
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
+    {
+        $rawData = array(
+            Native::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
+        );
 
-            $mapped = $this->mapper->mapRawData($rawData);
+        $mapped = $this->mapper->mapRawData($rawData);
 
-            $result = reset($mapped);
-            $this->assertInstanceOf('\\DateTime', $result);
-            $this->assertEquals(
-                '2015:04:01 12:11:09',
-                $result->format('Y:m:d H:i:s')
-            );
-            $this->assertEquals(
-                7200,
-                $result->getOffset()
-            );
-            $this->assertEquals(
-                '+02:00',
-                $result->getTimezone()->getName()
-            );
-        }
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
 
-        /**
-         * @group mapper
-             */
-        public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
-        {
-            $rawData = array(
-                Native::DATETIMEORIGINAL => '2015:04:01 12:11:09',
-                'UndefinedTag:0x9011' => '+0200',
-            );
+    /**
+     * @group mapper
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
+    {
+        $rawData = array(
+            Native::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'UndefinedTag:0x9011' => '+0200',
+        );
 
-            $mapped = $this->mapper->mapRawData($rawData);
+        $mapped = $this->mapper->mapRawData($rawData);
 
-            $result = reset($mapped);
-            $this->assertInstanceOf('\\DateTime', $result);
-            $this->assertEquals(
-                '2015:04:01 12:11:09',
-                $result->format('Y:m:d H:i:s')
-            );
-            $this->assertEquals(
-                7200,
-                $result->getOffset()
-            );
-            $this->assertEquals(
-                '+02:00',
-                $result->getTimezone()->getName()
-            );
-        }
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
 
+    /**
+     * @group mapper
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone3()
+    {
+        $rawData = array(
+            Native::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'UndefinedTag:0x9010' => '+0200',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
+    
     /**
      * @group mapper
      */

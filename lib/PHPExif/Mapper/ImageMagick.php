@@ -155,6 +155,13 @@ class ImageMagick extends AbstractMapper
                                 $timezone = null;
                             }
                             $value = new DateTime($value, $timezone);
+                        } elseif (isset($data['exif:OffsetTime'])) {
+                            try {
+                                $timezone = new \DateTimeZone($data['exif:OffsetTime']);
+                            } catch (\Exception $e) {
+                                $timezone = null;
+                            }
+                            $value = new DateTime($value, $timezone);
                         } else {
                             $value = new DateTime($value);
                         }

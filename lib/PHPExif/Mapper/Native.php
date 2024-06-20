@@ -171,8 +171,8 @@ class Native extends AbstractMapper
                     if (preg_match('/^0000[-:]00[-:]00.00:00:00/', $value) === 1) {
                         continue 2;
                     }
-                    // Check if OffsetTimeOriginal (0x9011) is available
                     try {
+                        // Check if OffsetTimeOriginal (0x9011) is available
                         if (isset($data['UndefinedTag:0x9011'])) {
                             try {
                                 $timezone = new \DateTimeZone($data['UndefinedTag:0x9011']);
@@ -180,11 +180,19 @@ class Native extends AbstractMapper
                                 $timezone = null;
                             }
                             $value = new DateTime($value, $timezone);
+                        // Check if OffsetTime (0x9010) is available
+                        } elseif (isset($data['UndefinedTag:0x9010'])) {
+                            try {
+                                $timezone = new \DateTimeZone($data['UndefinedTag:0x9010']);
+                            } catch (\Exception $e) {
+                                $timezone = null;
+                            }
+                                $value = new DateTime($value, $timezone);
                         } else {
                             $value = new DateTime($value);
                         }
                     } catch (\Exception $e) {
-                        // Provided DateTimeOriginal or OffsetTimeOriginal invalid
+                        // Provided DateTimeOriginal or OffsetTimeOriginal or OffsetTime invalid
                         continue 2;
                     }
                     break;

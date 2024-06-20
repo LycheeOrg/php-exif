@@ -240,6 +240,13 @@ class Exiftool extends AbstractMapper
                                     $timezone = null;
                                 }
                                 $value = new DateTime($value, $timezone);
+                            } elseif (isset($data['ExifIFD:OffsetTime'])) {
+                                try {
+                                    $timezone = new \DateTimeZone($data['ExifIFD:OffsetTime']);
+                                } catch (\Exception $e) {
+                                    $timezone = null;
+                                }
+                                $value = new DateTime($value, $timezone);
                             } else {
                                 $value = new DateTime($value);
                             }

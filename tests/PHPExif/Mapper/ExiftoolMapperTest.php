@@ -169,6 +169,10 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
               'ExifIFD:OffsetTimeOriginal' => '+0200',
           ),
           array(
+            Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'ExifIFD:OffsetTime' => '+0200',
+          ),
+          array(
               Exiftool::DATETIMEORIGINAL_APPLE => '2015-04-01T12:11:09+0200',
               Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09',
               'ExifIFD:OffsetTimeOriginal' => '+0200',
