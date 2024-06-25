@@ -113,12 +113,16 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
             ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
           ),
           array(
-              ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09',
-              'exif:OffsetTimeOriginal' => '+0200',
+            ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'exif:OffsetTimeOriginal' => '+0200',
           ),
           array(
-              ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09',
-              'exif:OffsetTimeOriginal' => '+0200',
+            ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'exif:OffsetTime' => '+0200',
+          ),
+          array(
+            ImageMagick::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'exif:OffsetTimeOriginal' => '+0200',
           )
         );
 
