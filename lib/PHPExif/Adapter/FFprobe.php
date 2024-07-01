@@ -43,7 +43,7 @@ class FFprobe extends AbstractAdapter
 
 
     /**
-     * Set up Exiftool adapter
+     * Set up FFprobe adapter
      *
      * @param array $options option to be passed to the parent
      * @param string $path optional path to the tool
