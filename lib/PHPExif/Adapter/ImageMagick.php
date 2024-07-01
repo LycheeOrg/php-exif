@@ -52,6 +52,7 @@ class ImageMagick extends AbstractAdapter
     public function getExifFromFile(string $file): Exif
     {
         /* Create the object */
+        /** @disregard P1009 */
         $im = new Imagick($file);
 
         /* Get the EXIF information */

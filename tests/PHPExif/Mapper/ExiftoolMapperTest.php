@@ -94,7 +94,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 
         // create raw data
         $keys = array_keys($map);
-        $values = array();
+        $values = [];
         $values = array_pad($values, count($keys), 'foo');
         $rawData = array_combine($keys, $values);
 

@@ -147,7 +147,7 @@ class Native extends AbstractMapper
      */
     public function mapRawData(array $data): array
     {
-        $mappedData = array();
+        $mappedData = [];
 
         foreach ($data as $field => $value) {
             if ($this->isSection($field) && is_array($value)) {

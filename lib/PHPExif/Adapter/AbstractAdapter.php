@@ -30,7 +30,7 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @param array $options Optional array of data to initialize the object with
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (count($options) > 0) {
             $this->setOptions($options);
@@ -43,7 +43,7 @@ abstract class AbstractAdapter implements AdapterInterface
      * @param \PHPExif\Contracts\MapperInterface $mapper
      * @return \PHPExif\Contracts\AdapterInterface
      */
-    public function setMapper(MapperInterface $mapper): AdapterInterface
+    final public function setMapper(MapperInterface $mapper): AdapterInterface
     {
         $this->mapper = $mapper;
 

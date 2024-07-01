@@ -22,7 +22,7 @@ class ExifTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstructorCallsSetData()
     {
-        $input = array();
+        $input = [];
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder(Exif::class)
