@@ -32,8 +32,21 @@ class Exiftool extends AbstractAdapter
      */
     protected string $toolPath = '';
     protected bool $numeric = true;
-    protected array $encoding = array();
+    protected array $encoding = [];
     protected string $mapperClass = MapperExiftool::class;
+
+    /**
+     * Set up Exiftool adapter
+     *
+     * @param array $options option to be passed to the parent
+     * @param string $path optional path to the tool
+     * @return self
+     */
+    public function __construct(array $options = [], string $path = '')
+    {
+        parent::__construct($options);
+        $this->toolPath = $path;
+    }
 
     /**
      * Setter for the exiftool binary path

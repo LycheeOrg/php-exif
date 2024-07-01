@@ -21,7 +21,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
      */
     public function testSetOptionsReturnsCurrentInstance()
     {
-        $result = $this->adapter->setOptions(array());
+        $result = $this->adapter->setOptions([]);
         $this->assertSame($this->adapter, $result);
     }
 

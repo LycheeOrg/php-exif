@@ -123,7 +123,7 @@ class ImageMagick extends AbstractMapper
      */
     public function mapRawData(array $data): array
     {
-        $mappedData = array();
+        $mappedData = [];
 
         foreach ($data as $field => $value) {
             if (!array_key_exists($field, $this->map)) {

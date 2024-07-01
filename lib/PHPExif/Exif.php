@@ -62,19 +62,19 @@ class Exif
     /**
      * The mapped EXIF data
      */
-    protected array $data = array();
+    protected array $data = [];
 
     /**
      * The raw EXIF data
      */
-    protected array $rawData = array();
+    protected array $rawData = [];
 
     /**
      * Class constructor
      *
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->setData($data);
     }

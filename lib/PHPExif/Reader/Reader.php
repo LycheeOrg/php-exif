@@ -34,18 +34,19 @@ class Reader implements ReaderInterface
      * Factory for the reader
      *
      * @param ReaderType $type
+     * @param string $path
      * @return Reader
      */
-    public static function factory(ReaderType $type): Reader
+    public static function factory(ReaderType $type, string $path = ''): Reader
     {
-        $classname = get_called_class();
         $adapter = match ($type) {
             ReaderType::NATIVE => new NativeAdapter(),
-            ReaderType::EXIFTOOL => new ExiftoolAdapter(),
-            ReaderType::FFPROBE => new FFProbeAdapter(),
+            ReaderType::EXIFTOOL => new ExiftoolAdapter(path: $path),
+            ReaderType::FFPROBE => new FFProbeAdapter(path: $path),
             ReaderType::IMAGICK => new ImageMagickAdapter(),
         };
-        return new $classname($adapter);
+
+        return new Reader($adapter);
     }
 
     /**

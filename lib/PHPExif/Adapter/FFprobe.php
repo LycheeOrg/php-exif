@@ -43,6 +43,19 @@ class FFprobe extends AbstractAdapter
 
 
     /**
+     * Set up FFprobe adapter
+     *
+     * @param array $options option to be passed to the parent
+     * @param string $path optional path to the tool
+     * @return self
+     */
+    public function __construct(array $options = [], string $path = '')
+    {
+        parent::__construct($options);
+        $this->toolPath = $path;
+    }
+
+    /**
      * Setter for the exiftool binary path
      *
      * @param string $path The path to the exiftool binary
