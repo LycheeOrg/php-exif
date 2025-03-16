@@ -344,6 +344,9 @@ class Exiftool extends AbstractMapper
                             $rotate = true;
                         }
                     }
+                    if (!isset($value_split[0]) || !isset($value_split[1])) {
+                        continue 2;
+                    }
                     if (!array_key_exists(Exif::WIDTH, $mappedData)) {
                         if (!($rotate)) {
                             $mappedData[Exif::WIDTH]  = intval($value_split[0]);
@@ -410,7 +413,9 @@ class Exiftool extends AbstractMapper
             if (preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches) === 0) {
                 return false;
             }
-
+            if (!isset($matches[1]) || !isset($matches[2]) || !isset($matches[3])) {
+                return false;
+            }
             return round(
                 floatval($matches[1]) + (floatval($matches[2]) / 60) + (floatval($matches[3]) / 3600),
                 self::ROUNDING_PRECISION

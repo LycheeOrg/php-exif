@@ -278,9 +278,12 @@ class ImageMagick extends AbstractMapper
             if (preg_match($m, $coordinates, $matches) === 0) {
                 return false;
             }
+            if (!isset($matches[1])) {
+                return false;
+            }
             $degrees = $this->normalizeComponent($matches[1]);
-            $minutes = $this->normalizeComponent($matches[2] ?? 0);
-            $seconds = $this->normalizeComponent($matches[3] ?? 0);
+            $minutes = $this->normalizeComponent($matches[2] ?? '0');
+            $seconds = $this->normalizeComponent($matches[3] ?? '0');
             if ($degrees === false || $minutes === false || $seconds === false) {
                 return false;
             }

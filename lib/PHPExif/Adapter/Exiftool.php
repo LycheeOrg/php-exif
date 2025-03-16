@@ -202,6 +202,7 @@ class Exiftool extends AbstractAdapter
             2 => array('pipe', 'a')
         );
 
+        // @phpstan-ignore-next-line This is properly handle below, no need for the Safe version.
         $process = proc_open($command, $descriptorspec, $pipes);
 
         if (!is_resource($process)) {
@@ -214,9 +215,8 @@ class Exiftool extends AbstractAdapter
         fclose($pipes[0]);
         fclose($pipes[1]);
         fclose($pipes[2]);
-
+        // @phpstan-ignore-next-line We do not need to care for that.
         proc_close($process);
-
         return $result;
     }
 }

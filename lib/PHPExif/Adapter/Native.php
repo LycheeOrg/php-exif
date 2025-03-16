@@ -212,10 +212,8 @@ class Native extends AbstractAdapter
         if (!(array_key_exists('height', $data)) || !(array_key_exists('width', $data))) {
             try {
                 $img_size = getimagesize($file);
-                if ($img_size[0] !== null && $img_size[1] !== null) {
-                    $data['width'] = $img_size[0];
-                    $data['height'] = $img_size[1];
-                }
+                $data['width'] = $img_size[0];
+                $data['height'] = $img_size[1];
             } catch (ImageException) {
                 // Fail silently
             }
