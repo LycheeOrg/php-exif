@@ -788,5 +788,20 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                 );
             }
         }
+
+        // Test for .avif type image for Native adapter
+        $testfiles = array(
+            PHPEXIF_TEST_ROOT . '/files/fox.profile0.10bpc.yuv420.avif',
+        );
+
+        foreach ($testfiles as $file) {
+            $file_name = basename($file);
+            $adapter_native = new \PHPExif\Adapter\Native();
+            $result_exif_native = $adapter_native->getExifFromFile($file);
+
+            $this->assertEquals($file_name, $result_exif_native->getFileName());
+            $this->assertEquals('image/avif', $result_exif_native->getMimeType());
+            $this->assertIsNumeric($result_exif_native->getWidth());
+        }
     }
 }

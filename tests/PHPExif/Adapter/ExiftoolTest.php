@@ -115,6 +115,19 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     /**
      * @group exiftool
      */
+    public function testGetExifFromFileWithAvif()
+    {
+        $file = PHPEXIF_TEST_ROOT . '/files/fox.profile0.10bpc.yuv420.avif';
+        $this->adapter->setOptions(array('encoding' => array('utf8')));
+        $result = $this->adapter->getExifFromFile($file);
+        $this->assertInstanceOf('\PHPExif\Exif', $result);
+        $this->assertIsArray($result->getRawData());
+        $this->assertNotEmpty($result->getRawData());
+    }
+
+    /**
+     * @group exiftool
+     */
     public function testGetCliOutput()
     {
         $reflMethod = new \ReflectionMethod(Exiftool::class, 'getCliOutput');
