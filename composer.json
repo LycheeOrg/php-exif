@@ -33,7 +33,7 @@
         "Imagick"
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "ext-fileinfo": "*",
         "fylax/forceutf8": "^3.0.3",
         "php-ffmpeg/php-ffmpeg": "^1.2",
@@ -81,7 +81,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.3"
+            "php": "8.4"
         },
         "preferred-install": "dist",
         "sort-packages": true,
