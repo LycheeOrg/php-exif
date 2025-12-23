@@ -23,7 +23,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
     public function testGetToolPathFromProperty()
     {
         $reflProperty = new \ReflectionProperty(FFprobe::class, 'toolPath');
-        $reflProperty->setAccessible(true);
         $expected = '/foo/bar/baz';
         $reflProperty->setValue($this->adapter, $expected);
 
@@ -36,7 +35,6 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
     public function testSetToolPathInProperty()
     {
         $reflProperty = new \ReflectionProperty(FFprobe::class, 'toolPath');
-        $reflProperty->setAccessible(true);
 
         $expected = '/tmp';
         $this->adapter->setToolPath($expected);

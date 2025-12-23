@@ -38,7 +38,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
-        $reflProp->setAccessible(true);
         $map = $reflProp->getValue($this->mapper);
 
         // ignore custom formatted data stuff:
@@ -307,7 +306,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
     public function testNormalizeComponentCorrectly()
     {
         $reflMethod = new \ReflectionMethod(FFprobe::class, 'normalizeComponent');
-        $reflMethod->setAccessible(true);
 
         $rawData = array(
             '2/800' => 0.0025,
@@ -354,7 +352,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
     public function testreadISO6709()
     {
         $reflMethod = new \ReflectionMethod(FFprobe::class, 'readISO6709');
-        $reflMethod->setAccessible(true);
 
         $testcase = array(
           '+27.5916+086.5640+8850/' => array(
@@ -417,7 +414,6 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
     {
 
         $reflMethod = new \ReflectionMethod(FFprobe::class, 'convertDMStoDecimal');
-        $reflMethod->setAccessible(true);
 
         $testcase = array(
           '+27.5916' => array(

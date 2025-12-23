@@ -48,7 +48,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     public function testGetRawData()
     {
         $reflProperty = new \ReflectionProperty(Exif::class, 'rawData');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals($reflProperty->getValue($this->exif), $this->exif->getRawData());
     }
@@ -60,7 +59,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     {
         $testData = array('foo', 'bar', 'baz');
         $reflProperty = new \ReflectionProperty(Exif::class, 'rawData');
-        $reflProperty->setAccessible(true);
 
         $result = $this->exif->setRawData($testData);
 
@@ -74,7 +72,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     public function testGetData()
     {
         $reflProperty = new \ReflectionProperty(Exif::class, 'data');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals($reflProperty->getValue($this->exif), $this->exif->getData());
     }
@@ -86,7 +83,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     {
         $testData = array('foo', 'bar', 'baz');
         $reflProperty = new \ReflectionProperty(Exif::class, 'data');
-        $reflProperty->setAccessible(true);
 
         $result = $this->exif->setData($testData);
 
@@ -653,7 +649,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
         $constants = $reflClass->getConstants();
 
         $reflProp = new \ReflectionProperty(get_class($this->exif), 'data');
-        $reflProp->setAccessible(true);
 
         $expected = 'foo';
         foreach ($constants as $name => $value) {
@@ -787,6 +782,21 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                     'Adapter difference detected exiftool/imagemagick in method "' . $name . '" on image "' . basename($file) . '"'
                 );
             }
+        }
+
+        // Test for .avif type image for Native adapter
+        $testfiles = array(
+            PHPEXIF_TEST_ROOT . '/files/fox.profile0.10bpc.yuv420.avif',
+        );
+
+        foreach ($testfiles as $file) {
+            $file_name = basename($file);
+            $adapter_native = new \PHPExif\Adapter\Native();
+            $result_exif_native = $adapter_native->getExifFromFile($file);
+
+            $this->assertEquals($file_name, $result_exif_native->getFileName());
+            $this->assertEquals('image/avif', $result_exif_native->getMimeType());
+            $this->assertIsNumeric($result_exif_native->getWidth());
         }
     }
 }

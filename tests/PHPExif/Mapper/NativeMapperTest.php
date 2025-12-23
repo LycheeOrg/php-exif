@@ -37,7 +37,6 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
-        $reflProp->setAccessible(true);
         $map = $reflProp->getValue($this->mapper);
 
         // ignore custom formatted data stuff:
@@ -175,7 +174,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
             $result->getTimezone()->getName()
         );
     }
-    
+
     /**
      * @group mapper
      */
@@ -455,7 +454,6 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
     public function testNormalizeComponentCorrectly()
     {
         $reflMethod = new \ReflectionMethod(Native::class, 'normalizeComponent');
-        $reflMethod->setAccessible(true);
 
         $rawData = array(
             '2/800' => 0.0025,

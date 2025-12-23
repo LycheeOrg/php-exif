@@ -37,7 +37,6 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
-        $reflProp->setAccessible(true);
         $map = $reflProp->getValue($this->mapper);
 
         // ignore custom formatted data stuff:
@@ -441,7 +440,6 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
     public function testSetNumericInProperty()
     {
         $reflProperty = new \ReflectionProperty(get_class($this->mapper), 'numeric');
-        $reflProperty->setAccessible(true);
 
         $expected = true;
         $this->mapper->setNumeric($expected);

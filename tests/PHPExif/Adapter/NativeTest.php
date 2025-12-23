@@ -20,7 +20,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testSetIncludeThumbnailInProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'includeThumbnail');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals(Native::NO_THUMBNAIL, $reflProperty->getValue($this->adapter));
 
@@ -35,7 +34,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testGetIncludeThumbnailFromProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'includeThumbnail');
-        $reflProperty->setAccessible(true);
         $reflProperty->setValue($this->adapter, Native::INCLUDE_THUMBNAIL);
 
         $this->assertEquals(Native::INCLUDE_THUMBNAIL, $this->adapter->getIncludeThumbnail());
@@ -55,7 +53,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testGetRequiredSections()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals($reflProperty->getValue($this->adapter), $this->adapter->getRequiredSections());
     }
@@ -66,7 +63,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testSetRequiredSections()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
-        $reflProperty->setAccessible(true);
 
         $testData = array('foo', 'bar', 'baz');
 
@@ -82,7 +78,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testAddRequiredSection()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
-        $reflProperty->setAccessible(true);
 
         $testData = array('foo', 'bar', 'baz');
         $this->adapter->setRequiredSections($testData);
@@ -153,7 +148,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testSetSectionsAsArrayInProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
-        $reflProperty->setAccessible(true);
         $expected = Native::SECTIONS_AS_ARRAYS;
         $this->adapter->setSectionsAsArrays($expected);
         $actual = $reflProperty->getValue($this->adapter);
@@ -166,7 +160,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testSetSectionsAsArrayConvertsToBoolean()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
-        $reflProperty->setAccessible(true);
         $expected = Native::SECTIONS_AS_ARRAYS;
         $this->adapter->setSectionsAsArrays('Foo');
         $actual = $reflProperty->getValue($this->adapter);
@@ -179,7 +172,6 @@ class NativeTest extends \PHPUnit\Framework\TestCase
     public function testGetSectionsAsArrayFromProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
-        $reflProperty->setAccessible(true);
         $reflProperty->setValue($this->adapter, Native::SECTIONS_AS_ARRAYS);
 
         $this->assertEquals(Native::SECTIONS_AS_ARRAYS, $this->adapter->getSectionsAsArrays());

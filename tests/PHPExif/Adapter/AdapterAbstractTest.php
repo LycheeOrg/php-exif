@@ -39,7 +39,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
 
         foreach ($expected as $key => $value) {
             $reflProp = new \ReflectionProperty(Native::class, $key);
-            $reflProp->setAccessible(true);
             $this->assertEquals($value, $reflProp->getValue($this->adapter));
         }
     }
@@ -56,7 +55,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
 
         foreach ($expected as $key => $value) {
             $reflProp = new \ReflectionProperty(Native::class, $key);
-            $reflProp->setAccessible(true);
             $this->assertNotEquals($value, $reflProp->getValue($this->adapter));
         }
     }
@@ -76,7 +74,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
 
         foreach ($expected as $key => $value) {
             $reflProp = new \ReflectionProperty(Native::class, $key);
-            $reflProp->setAccessible(true);
             $this->assertEquals($value, $reflProp->getValue($adapter));
         }
     }
@@ -100,7 +97,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->adapter->setMapper($mapper);
 
         $reflProp = new \ReflectionProperty(AbstractAdapter::class, 'mapper');
-        $reflProp->setAccessible(true);
         $this->assertSame($mapper, $reflProp->getValue($this->adapter));
     }
 
@@ -111,7 +107,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
     {
         $mapper = new \PHPExif\Mapper\Native();
         $reflProp = new \ReflectionProperty(AbstractAdapter::class, 'mapper');
-        $reflProp->setAccessible(true);
         $reflProp->setValue($this->adapter, $mapper);
         $this->assertSame($mapper, $this->adapter->getMapper());
     }
@@ -127,7 +122,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         );
 
         $mapperClass = '\\PHPExif\\Mapper\\Native';
-        $reflProp->setAccessible(true);
         $reflProp->setValue($this->adapter, $mapperClass);
 
         $this->assertInstanceOf($mapperClass, $this->adapter->getMapper());
@@ -144,14 +138,12 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         );
 
         $mapperClass = '\\PHPExif\\Mapper\\Native';
-        $reflProp->setAccessible(true);
         $reflProp->setValue($this->adapter, $mapperClass);
 
         $reflProp2 = new \ReflectionProperty(
             get_class($this->adapter),
             'mapper'
         );
-        $reflProp2->setAccessible(true);
         $this->adapter->getMapper();
         $this->assertInstanceOf($mapperClass, $reflProp2->getValue($this->adapter));
     }
@@ -175,7 +167,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->adapter->setHydrator($hydrator);
 
         $reflProp = new \ReflectionProperty(AbstractAdapter::class, 'hydrator');
-        $reflProp->setAccessible(true);
         $this->assertSame($hydrator, $reflProp->getValue($this->adapter));
     }
 
@@ -186,7 +177,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
     {
         $hydrator = new \PHPExif\Hydrator\Mutator();
         $reflProp = new \ReflectionProperty(AbstractAdapter::class, 'hydrator');
-        $reflProp->setAccessible(true);
         $reflProp->setValue($this->adapter, $hydrator);
         $this->assertSame($hydrator, $this->adapter->getHydrator());
     }
@@ -211,7 +201,6 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
             get_class($this->adapter),
             'hydrator'
         );
-        $reflProp->setAccessible(true);
         $this->adapter->getHydrator();
         $this->assertInstanceOf($hydratorClass, $reflProp->getValue($this->adapter));
     }
