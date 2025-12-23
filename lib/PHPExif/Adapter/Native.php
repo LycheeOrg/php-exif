@@ -201,27 +201,6 @@ class Native extends AbstractAdapter
             $this->getIncludeThumbnail()
         );
 
-        if ($mimeType === 'image/avif') {
-            $output_array = [];
-            exec("exiftool -j " . escapeshellarg($file), $output_array); // Safe\exec will throw exception if fails
-            $tempExif = [];
-
-            if (count($output_array) > 0) {
-                $json = implode("\n", $output_array);
-                $tempExif = json_decode($json, true)[0] ?? [];
-            }
-
-            $data = array_merge(
-                ['FileName' => basename($file), 'MimeType' => $mimeType],
-                $tempExif
-            );
-            
-            // Ensure FileSize is integer
-            if (isset($data['FileSize'])) {
-                $data['FileSize'] = (int) preg_replace('/\D/', '', $data['FileSize']);
-            }
-        }
-
         // exif_read_data failed to read exif data (i.e. not a jpg/tiff)
         if (false === $data) {
             $data = [];
