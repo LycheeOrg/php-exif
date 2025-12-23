@@ -18,7 +18,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
         /** @var AdapterInterface $mock */
         $mock = $this->getMockBuilder(AdapterInterface::class)->getMockForAbstractClass();
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
 
         $reader = new Reader($mock);
 
@@ -62,7 +61,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     {
         $reader = Reader::factory(\PHPExif\Enum\ReaderType::NATIVE);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
 
         $adapter = $reflProperty->getValue($reader);
 
@@ -76,7 +74,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     {
         $reader = Reader::factory(\PHPExif\Enum\ReaderType::EXIFTOOL);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
 
         $adapter = $reflProperty->getValue($reader);
 
@@ -90,7 +87,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     {
         $reader = Reader::factory(\PHPExif\Enum\ReaderType::FFPROBE);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
 
         $adapter = $reflProperty->getValue($reader);
 
@@ -105,7 +101,6 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
     {
         $reader = Reader::factory(\PHPExif\Enum\ReaderType::IMAGICK);
         $reflProperty = new \ReflectionProperty(Reader::class, 'adapter');
-        $reflProperty->setAccessible(true);
 
         $adapter = $reflProperty->getValue($reader);
 

@@ -37,7 +37,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
-        $reflProp->setAccessible(true);
         $map = $reflProp->getValue($this->mapper);
 
         // ignore custom formatted data stuff:
@@ -487,7 +486,6 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
       public function testNormalizeComponentCorrectly()
       {
           $reflMethod = new \ReflectionMethod(ImageMagick::class, 'normalizeComponent');
-          $reflMethod->setAccessible(true);
 
           $rawData = array(
               '2/800' => 0.0025,

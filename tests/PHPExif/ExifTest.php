@@ -48,7 +48,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     public function testGetRawData()
     {
         $reflProperty = new \ReflectionProperty(Exif::class, 'rawData');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals($reflProperty->getValue($this->exif), $this->exif->getRawData());
     }
@@ -60,7 +59,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     {
         $testData = array('foo', 'bar', 'baz');
         $reflProperty = new \ReflectionProperty(Exif::class, 'rawData');
-        $reflProperty->setAccessible(true);
 
         $result = $this->exif->setRawData($testData);
 
@@ -74,7 +72,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     public function testGetData()
     {
         $reflProperty = new \ReflectionProperty(Exif::class, 'data');
-        $reflProperty->setAccessible(true);
 
         $this->assertEquals($reflProperty->getValue($this->exif), $this->exif->getData());
     }
@@ -86,7 +83,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     {
         $testData = array('foo', 'bar', 'baz');
         $reflProperty = new \ReflectionProperty(Exif::class, 'data');
-        $reflProperty->setAccessible(true);
 
         $result = $this->exif->setData($testData);
 
@@ -653,7 +649,6 @@ class ExifTest extends \PHPUnit\Framework\TestCase
         $constants = $reflClass->getConstants();
 
         $reflProp = new \ReflectionProperty(get_class($this->exif), 'data');
-        $reflProp->setAccessible(true);
 
         $expected = 'foo';
         foreach ($constants as $name => $value) {

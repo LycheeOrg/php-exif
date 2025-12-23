@@ -17,7 +17,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     public function testGetToolPathFromProperty()
     {
         $reflProperty = new \ReflectionProperty(Exiftool::class, 'toolPath');
-        $reflProperty->setAccessible(true);
         $expected = '/foo/bar/baz';
         $reflProperty->setValue($this->adapter, $expected);
 
@@ -30,7 +29,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     public function testSetToolPathInProperty()
     {
         $reflProperty = new \ReflectionProperty(Exiftool::class, 'toolPath');
-        $reflProperty->setAccessible(true);
 
         $expected = '/tmp';
         $this->adapter->setToolPath($expected);
@@ -62,7 +60,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     public function testSetNumericInProperty()
     {
         $reflProperty = new \ReflectionProperty(Exiftool::class, 'numeric');
-        $reflProperty->setAccessible(true);
 
         $expected = true;
         $this->adapter->setNumeric($expected);
@@ -77,7 +74,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     public function testSetEncodingInProperty()
     {
         $reflProperty = new \ReflectionProperty(Exiftool::class, 'encoding');
-        $reflProperty->setAccessible(true);
 
         $expected = array('iptc' => 'cp1250');
         $input = array('iptc' => 'cp1250', 'exif' => 'utf8', 'foo' => 'bar');
@@ -131,7 +127,6 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
     public function testGetCliOutput()
     {
         $reflMethod = new \ReflectionMethod(Exiftool::class, 'getCliOutput');
-        $reflMethod->setAccessible(true);
 
         $result = $reflMethod->invoke(
             $this->adapter,
