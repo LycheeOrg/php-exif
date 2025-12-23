@@ -10,9 +10,6 @@ use function Safe\mime_content_type;
 use function Safe\filesize;
 use function Safe\getimagesize;
 use function Safe\iptcparse;
-use function Safe\exec;
-use function Safe\json_decode;
-use function Safe\preg_replace;
 
 /**
  * PHP Exif Native Reader Adapter
