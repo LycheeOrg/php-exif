@@ -124,6 +124,8 @@ jobs:
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies
         uses: ramsey/composer-install@a2636af0004d1c0499ffca16ac0b4cc94df70565 # 3.1.0
+        with:
+          composer-options: "--no-dev --prefer-dist --optimize-autoloader"
 
       # - name: boot test server
       #   run: vendor/bin/http_test_server > /dev/null 2>&1 &
