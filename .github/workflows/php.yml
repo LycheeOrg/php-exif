@@ -94,6 +94,8 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
+          - "8.2"
+          - "8.3"
           - "8.4"
           - "8.5"
     env:
@@ -122,6 +124,9 @@ jobs:
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies
         uses: ramsey/composer-install@a2636af0004d1c0499ffca16ac0b4cc94df70565 # 3.1.0
+        with:
+          dependency-versions: "latest" # Use latest versions of dependencies to mimic projects using this package.
+          composer-options: "--prefer-dist --optimize-autoloader" # Disable dev dependencies, to mimic projects using this package.
 
       # - name: boot test server
       #   run: vendor/bin/http_test_server > /dev/null 2>&1 &
