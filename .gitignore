@@ -6,3 +6,5 @@ composer.phar
 .idea
 .phpunit.result.cache
 infection.html
+# Otherwise we won't be able to install it on different php version.
+composer.lock
