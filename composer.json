@@ -36,7 +36,7 @@
         "php": "^8.2 || ^8.3 || ^8.4 || ^8.5",
         "ext-fileinfo": "*",
         "fylax/forceutf8": "^3.0.3",
-        "php-ffmpeg/php-ffmpeg": "^1.2",
+        "php-ffmpeg/php-ffmpeg": "^1.4",
         "thecodingmachine/safe": "^2.0 || ^3.0"
     },
     "require-dev": {
