@@ -274,7 +274,7 @@ class ImageMagick extends AbstractMapper
         if (is_numeric($coordinates) === true) {
             return ((float) $coordinates);
         } else {
-            $m = '!^([0-9]+\/[1-9][0-9]*)(?:, ([0-9]+\/[1-9][0-9]*))?(?:, ([0-9]+\/[1-9][0-9]*))?$!';
+            $m = '!^([0-9]+\/[1-9][0-9]*)(?:,\s*([0-9]+\/[1-9][0-9]*))?(?:,\s*([0-9]+\/[1-9][0-9]*))?$!';
             if (preg_match($m, $coordinates, $matches) === 0) {
                 return false;
             }
