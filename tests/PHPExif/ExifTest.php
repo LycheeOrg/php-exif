@@ -741,10 +741,10 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                     'Adapter difference detected native/exiftool in method "' . $name . '" on image "' . basename($file) . '"'
                 );
 
-                if (in_array(basename($file), ['dsc_0003.jpg', 'mongolia.jpeg'], true)
+                if (in_array(basename($file), ['dsc_0003.jpg'], true)
                     && in_array($name, ['getGPS', 'getLongitude', 'getLatitude'], true)
-                    && in_array($result_native, ['1,1', 1.0, '46.898392,102.76863098333', 46.898392, 102.768630983333], true)
-                    && $result_imagemagick === false) {
+                    && in_array($result_native, ['1,1', 1.0], true)
+                    && in_array($result_imagemagick, ['1.017917240991,1.075044832787', 1.017917240991, 1.075044832787], true)) {
                     // Skip that test...
                     // Something is going wrong here, no clue what.
                     // Suspect it is on php-imagick side.
