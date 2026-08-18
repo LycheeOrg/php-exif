@@ -344,6 +344,7 @@ class Exiftool extends AbstractMapper
                             $rotate = true;
                         }
                     }
+                    // @phpstan-ignore isset.offset (better safe than sorry, but this should never happen)
                     if (!isset($value_split[0]) || !isset($value_split[1])) {
                         continue 2;
                     }
@@ -413,7 +414,11 @@ class Exiftool extends AbstractMapper
             if (preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches) === 0) {
                 return false;
             }
-            if (!isset($matches[1]) || !isset($matches[2]) || !isset($matches[3])) {
+            if (!isset($matches[1])
+                // @phpstan-ignore isset.offset (better safe than sorry, but this should never happen)
+                || !isset($matches[2])
+                // @phpstan-ignore isset.offset (better safe than sorry, but this should never happen)
+                || !isset($matches[3])) {
                 return false;
             }
             return round(
