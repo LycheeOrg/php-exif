@@ -34,4 +34,41 @@ abstract class AbstractMapper implements MapperInterface
         }
         return $data;
     }
+
+    /**
+     * Normalize a boolean XMP value: true/false (any case), 1/0 or a PHP bool
+     *
+     * @param mixed $value
+     * @return bool|null null if the value is not a recognised boolean
+     */
+    protected function normalizeBool(mixed $value): ?bool
+    {
+        if (is_bool($value)) {
+            return $value;
+        }
+        if (!is_int($value) && !is_string($value)) {
+            return null;
+        }
+
+        return match (strtolower(trim((string) $value))) {
+            'true', '1' => true,
+            'false', '0' => false,
+            default => null,
+        };
+    }
+
+    /**
+     * Normalize an integer value
+     *
+     * @param mixed $value
+     * @return int|null null if the value is not numeric
+     */
+    protected function normalizeInt(mixed $value): ?int
+    {
+        if (!is_numeric($value)) {
+            return null;
+        }
+
+        return (int) $value;
+    }
 }

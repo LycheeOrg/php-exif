@@ -100,6 +100,15 @@ class Exiftool extends AbstractMapper
     public const DURATION_WMV                = 'ASF:SendDuration';
     public const DATETIMEORIGINAL_PNG        = 'PNG:CreationTime';
 
+    public const PROJECTIONTYPE               = 'XMP-GPano:ProjectionType';
+    public const USEPANORAMAVIEWER            = 'XMP-GPano:UsePanoramaViewer';
+    public const FULLPANOWIDTHPIXELS          = 'XMP-GPano:FullPanoWidthPixels';
+    public const FULLPANOHEIGHTPIXELS         = 'XMP-GPano:FullPanoHeightPixels';
+    public const CROPPEDAREALEFTPIXELS        = 'XMP-GPano:CroppedAreaLeftPixels';
+    public const CROPPEDAREATOPPIXELS         = 'XMP-GPano:CroppedAreaTopPixels';
+    public const CROPPEDAREAIMAGEWIDTHPIXELS  = 'XMP-GPano:CroppedAreaImageWidthPixels';
+    public const CROPPEDAREAIMAGEHEIGHTPIXELS = 'XMP-GPano:CroppedAreaImageHeightPixels';
+
     /**
      * Maps the ExifTool fields to the fields of
      * the \PHPExif\Exif class
@@ -175,7 +184,15 @@ class Exiftool extends AbstractMapper
         self::CITY                        => Exif::CITY,
         self::STATE                       => Exif::STATE,
         self::COUNTRY                     => Exif::COUNTRY,
-        self::DATETIMEORIGINAL_PNG        => Exif::CREATION_DATE
+        self::DATETIMEORIGINAL_PNG        => Exif::CREATION_DATE,
+        self::PROJECTIONTYPE               => Exif::PROJECTIONTYPE,
+        self::USEPANORAMAVIEWER            => Exif::USEPANORAMAVIEWER,
+        self::FULLPANOWIDTHPIXELS          => Exif::FULLPANOWIDTHPIXELS,
+        self::FULLPANOHEIGHTPIXELS         => Exif::FULLPANOHEIGHTPIXELS,
+        self::CROPPEDAREALEFTPIXELS        => Exif::CROPPEDAREALEFTPIXELS,
+        self::CROPPEDAREATOPPIXELS         => Exif::CROPPEDAREATOPPIXELS,
+        self::CROPPEDAREAIMAGEWIDTHPIXELS  => Exif::CROPPEDAREAIMAGEWIDTHPIXELS,
+        self::CROPPEDAREAIMAGEHEIGHTPIXELS => Exif::CROPPEDAREAIMAGEHEIGHTPIXELS
     );
 
     protected bool $numeric = true;
@@ -386,6 +403,29 @@ class Exiftool extends AbstractMapper
                         $mappedData[Exif::LENS] = $value;
                     }
                     continue 2;
+                case self::PROJECTIONTYPE:
+                    if (!is_string($value) || $value === '') {
+                        continue 2;
+                    }
+                    $value = strtolower($value);
+                    break;
+                case self::USEPANORAMAVIEWER:
+                    $value = $this->normalizeBool($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::FULLPANOWIDTHPIXELS:
+                case self::FULLPANOHEIGHTPIXELS:
+                case self::CROPPEDAREALEFTPIXELS:
+                case self::CROPPEDAREATOPPIXELS:
+                case self::CROPPEDAREAIMAGEWIDTHPIXELS:
+                case self::CROPPEDAREAIMAGEHEIGHTPIXELS:
+                    $value = $this->normalizeInt($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
             }
             // set end result
             $mappedData[$key] = $value;

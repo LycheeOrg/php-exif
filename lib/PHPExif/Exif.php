@@ -26,6 +26,10 @@ class Exif
     public const COUNTRY               = 'country';
     public const CREATION_DATE         = 'creationdate';
     public const CREDIT                = 'credit';
+    public const CROPPEDAREAIMAGEHEIGHTPIXELS = 'CroppedAreaImageHeightPixels';
+    public const CROPPEDAREAIMAGEWIDTHPIXELS  = 'CroppedAreaImageWidthPixels';
+    public const CROPPEDAREALEFTPIXELS        = 'CroppedAreaLeftPixels';
+    public const CROPPEDAREATOPPIXELS         = 'CroppedAreaTopPixels';
     public const DESCRIPTION           = 'description';
     public const DURATION              = 'duration';
     public const EXPOSURE              = 'exposure';
@@ -34,6 +38,8 @@ class Exif
     public const FOCAL_LENGTH          = 'focalLength';
     public const FOCAL_DISTANCE        = 'focalDistance';
     public const FRAMERATE             = 'framerate';
+    public const FULLPANOHEIGHTPIXELS  = 'FullPanoHeightPixels';
+    public const FULLPANOWIDTHPIXELS   = 'FullPanoWidthPixels';
     public const GPS                   = 'gps';
     public const HEADLINE              = 'headline';
     public const HEIGHT                = 'height';
@@ -49,11 +55,13 @@ class Exif
     public const MICROVIDEOOFFSET      = 'MicroVideoOffset';
     public const MIMETYPE              = 'MimeType';
     public const ORIENTATION           = 'Orientation';
+    public const PROJECTIONTYPE        = 'ProjectionType';
     public const SOFTWARE              = 'software';
     public const SOURCE                = 'source';
     public const STATE                 = 'state';
     public const SUBLOCATION           = 'Sublocation';
     public const TITLE                 = 'title';
+    public const USEPANORAMAVIEWER     = 'UsePanoramaViewer';
     public const VERTICAL_RESOLUTION   = 'verticalResolution';
     public const WIDTH                 = 'width';
 
@@ -1172,6 +1180,224 @@ class Exif
         }
 
         return $this->data[self::MICROVIDEOOFFSET];
+    }
+
+    /**
+     * Sets the GPano projection type (lower-cased by the mappers)
+     *
+     * @param string $value
+     * @return Exif
+     */
+    public function setProjectionType(string $value): Exif
+    {
+        $this->data[self::PROJECTIONTYPE] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano projection type, if it exists
+     * e.g. "equirectangular" for a photo sphere
+     *
+     * @return string|false
+     */
+    public function getProjectionType(): string|false
+    {
+        if (!isset($this->data[self::PROJECTIONTYPE])) {
+            return false;
+        }
+
+        return $this->data[self::PROJECTIONTYPE];
+    }
+
+    /**
+     * Sets the GPano UsePanoramaViewer flag
+     *
+     * @param bool $value
+     * @return Exif
+     */
+    public function setUsePanoramaViewer(bool $value): Exif
+    {
+        $this->data[self::USEPANORAMAVIEWER] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano UsePanoramaViewer flag, or null if it does not exist.
+     * Unlike the other getters, false is a meaningful value here.
+     *
+     * @return bool|null
+     */
+    public function getUsePanoramaViewer(): ?bool
+    {
+        if (!isset($this->data[self::USEPANORAMAVIEWER])) {
+            return null;
+        }
+
+        return $this->data[self::USEPANORAMAVIEWER];
+    }
+
+    /**
+     * Sets the GPano full panorama width, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setFullPanoWidthPixels(int $value): Exif
+    {
+        $this->data[self::FULLPANOWIDTHPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano full panorama width, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getFullPanoWidthPixels(): int|false
+    {
+        if (!isset($this->data[self::FULLPANOWIDTHPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::FULLPANOWIDTHPIXELS];
+    }
+
+    /**
+     * Sets the GPano full panorama height, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setFullPanoHeightPixels(int $value): Exif
+    {
+        $this->data[self::FULLPANOHEIGHTPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano full panorama height, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getFullPanoHeightPixels(): int|false
+    {
+        if (!isset($this->data[self::FULLPANOHEIGHTPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::FULLPANOHEIGHTPIXELS];
+    }
+
+    /**
+     * Sets the GPano left offset of the cropped area, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setCroppedAreaLeftPixels(int $value): Exif
+    {
+        $this->data[self::CROPPEDAREALEFTPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano left offset of the cropped area, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getCroppedAreaLeftPixels(): int|false
+    {
+        if (!isset($this->data[self::CROPPEDAREALEFTPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::CROPPEDAREALEFTPIXELS];
+    }
+
+    /**
+     * Sets the GPano top offset of the cropped area, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setCroppedAreaTopPixels(int $value): Exif
+    {
+        $this->data[self::CROPPEDAREATOPPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano top offset of the cropped area, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getCroppedAreaTopPixels(): int|false
+    {
+        if (!isset($this->data[self::CROPPEDAREATOPPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::CROPPEDAREATOPPIXELS];
+    }
+
+    /**
+     * Sets the GPano cropped area width, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setCroppedAreaImageWidthPixels(int $value): Exif
+    {
+        $this->data[self::CROPPEDAREAIMAGEWIDTHPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano cropped area width, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getCroppedAreaImageWidthPixels(): int|false
+    {
+        if (!isset($this->data[self::CROPPEDAREAIMAGEWIDTHPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::CROPPEDAREAIMAGEWIDTHPIXELS];
+    }
+
+    /**
+     * Sets the GPano cropped area height, in pixels
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setCroppedAreaImageHeightPixels(int $value): Exif
+    {
+        $this->data[self::CROPPEDAREAIMAGEHEIGHTPIXELS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the GPano cropped area height, in pixels, if it exists
+     *
+     * @return int|false
+     */
+    public function getCroppedAreaImageHeightPixels(): int|false
+    {
+        if (!isset($this->data[self::CROPPEDAREAIMAGEHEIGHTPIXELS])) {
+            return false;
+        }
+
+        return $this->data[self::CROPPEDAREAIMAGEHEIGHTPIXELS];
     }
 
     /**

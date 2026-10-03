@@ -1,7 +1,10 @@
 <?php
 
 use PHPExif\Contracts\MapperInterface;
-use PhpExif\Mapper\Exiftool;
+use PHPExif\Exif;
+use PHPExif\Mapper\Exiftool;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 
 class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,17 +15,13 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->mapper = new Exiftool();
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testClassImplementsCorrectInterface()
     {
         $this->assertInstanceOf(MapperInterface::class, $this->mapper);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataIgnoresFieldIfItDoesntExist()
     {
         $rawData = array('foo' => 'bar');
@@ -31,9 +30,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $mapped);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
@@ -90,6 +87,14 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[Exiftool::SUBJECT]);
         unset($map[Exiftool::CONTENTIDENTIFIER]);
         unset($map[Exiftool::CONTENTIDENTIFIER_QUICKTIME]);
+        unset($map[Exiftool::PROJECTIONTYPE]);
+        unset($map[Exiftool::USEPANORAMAVIEWER]);
+        unset($map[Exiftool::FULLPANOWIDTHPIXELS]);
+        unset($map[Exiftool::FULLPANOHEIGHTPIXELS]);
+        unset($map[Exiftool::CROPPEDAREALEFTPIXELS]);
+        unset($map[Exiftool::CROPPEDAREATOPPIXELS]);
+        unset($map[Exiftool::CROPPEDAREAIMAGEWIDTHPIXELS]);
+        unset($map[Exiftool::CROPPEDAREAIMAGEHEIGHTPIXELS]);
 
         // create raw data
         $keys = array_keys($map);
@@ -107,9 +112,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsAperture()
     {
         $rawData = array(
@@ -121,9 +124,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('f/0.1', reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsFocusDistance()
     {
         $rawData = array(
@@ -135,9 +136,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('50m', reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDate()
     {
         $rawData = array(
@@ -154,9 +153,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
     {
         $data = array(
@@ -198,9 +195,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
     {
         $rawData = array(
@@ -226,9 +221,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectCreationDate()
     {
         $rawData = array(
@@ -240,9 +233,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectCreationDate2()
     {
         $rawData = array(
@@ -254,9 +245,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectTimeZone()
     {
         $rawData = array(
@@ -274,9 +263,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsExposureTime()
     {
         $rawData = array(
@@ -295,9 +282,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsFocalLength()
     {
         $rawData = array(
@@ -309,9 +294,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(15, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsGPSData()
     {
         $this->mapper->setNumeric(false);
@@ -333,9 +316,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected_lon, $result['longitude']);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataIncorrectlyFormatedGPSData()
     {
         $this->mapper->setNumeric(false);
@@ -351,9 +332,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $result);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsNumericGPSData()
     {
         $result = $this->mapper->mapRawData(
@@ -374,9 +353,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected_lon, $result['longitude']);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataOnlyLatitude()
     {
         $result = $this->mapper->mapRawData(
@@ -389,9 +366,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(1, $result);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresEmptyGPSData()
     {
         $result = $this->mapper->mapRawData(
@@ -406,9 +381,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectImageDirection()
     {
         $rawData = array(
@@ -420,9 +393,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectImageDirection()
     {
         $rawData = array(
@@ -434,9 +405,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('180.0', reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testSetNumericInProperty()
     {
         $reflProperty = new \ReflectionProperty(get_class($this->mapper), 'numeric');
@@ -482,9 +451,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyAltitude()
     {
         $result = $this->mapper->mapRawData(
@@ -497,9 +464,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyNegativeAltitude()
     {
         $result = $this->mapper->mapRawData(
@@ -512,9 +477,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectAltitude()
     {
         $result = $this->mapper->mapRawData(
@@ -526,9 +489,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsQuicktimeGPSData()
     {
         $result = $this->mapper->mapRawData(
@@ -548,9 +509,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected_lon, $result['longitude']);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyQuicktimeAltitude()
     {
         $result = $this->mapper->mapRawData(
@@ -563,9 +522,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyHeightVideo()
     {
         $rawData = array(
@@ -607,9 +564,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 
 
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyWidthVideo()
     {
         $rawData = array(
@@ -650,9 +605,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIsoFormats()
     {
         $expected = array(
@@ -670,9 +623,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyLensData()
     {
         $data = array(
@@ -699,9 +650,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyLensData2()
     {
         $rawData = array(
@@ -716,9 +665,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyKeywords()
     {
         $rawData = array(
@@ -733,9 +680,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyKeywordsAndSubject()
     {
         $rawData = array(
@@ -749,5 +694,108 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
             array('Keyword_1' ,'Keyword_2', 'Keyword_3'),
             reset($mapped)
         );
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataCorrectlyFormatsProjectionType()
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::PROJECTIONTYPE => ' EquiRectangular ',
+        ));
+
+        $this->assertSame(array(Exif::PROJECTIONTYPE => 'equirectangular'), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresEmptyProjectionType()
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::PROJECTIONTYPE => '  ',
+        ));
+
+        $this->assertSame(array(), $mapped);
+    }
+
+    /**
+     * Data provider for testMapRawDataCorrectlyFormatsUsePanoramaViewer
+     *
+     * @return array
+     */
+    public static function providerUsePanoramaViewer()
+    {
+        return array(
+            'bool true'      => array(true, true),
+            'bool false'     => array(false, false),
+            'string True'    => array('True', true),
+            'string False'   => array('False', false),
+            'string false'   => array('false', false),
+            'string TRUE'    => array(' TRUE ', true),
+            'int 1'          => array(1, true),
+            'int 0'          => array(0, false),
+            'string 1'       => array('1', true),
+            'string 0'       => array('0', false),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerUsePanoramaViewer')]
+    public function testMapRawDataCorrectlyFormatsUsePanoramaViewer($raw, $expected)
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::USEPANORAMAVIEWER => $raw,
+        ));
+
+        $this->assertSame(array(Exif::USEPANORAMAVIEWER => $expected), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresInvalidUsePanoramaViewer()
+    {
+        foreach (array('abc', '', 2, 'yes') as $raw) {
+            $mapped = $this->mapper->mapRawData(array(
+                Exiftool::USEPANORAMAVIEWER => $raw,
+            ));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    /**
+     * Data provider for the integer GPano crop fields
+     *
+     * @return array
+     */
+    public static function providerPanoCropFields()
+    {
+        return array(
+            array(Exiftool::FULLPANOWIDTHPIXELS, Exif::FULLPANOWIDTHPIXELS),
+            array(Exiftool::FULLPANOHEIGHTPIXELS, Exif::FULLPANOHEIGHTPIXELS),
+            array(Exiftool::CROPPEDAREALEFTPIXELS, Exif::CROPPEDAREALEFTPIXELS),
+            array(Exiftool::CROPPEDAREATOPPIXELS, Exif::CROPPEDAREATOPPIXELS),
+            array(Exiftool::CROPPEDAREAIMAGEWIDTHPIXELS, Exif::CROPPEDAREAIMAGEWIDTHPIXELS),
+            array(Exiftool::CROPPEDAREAIMAGEHEIGHTPIXELS, Exif::CROPPEDAREAIMAGEHEIGHTPIXELS),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerPanoCropFields')]
+    public function testMapRawDataCorrectlyFormatsPanoCropFields($field, $key)
+    {
+        foreach (array(8000, '8000', ' 8000 ') as $raw) {
+            $mapped = $this->mapper->mapRawData(array($field => $raw));
+
+            $this->assertSame(array($key => 8000), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerPanoCropFields')]
+    public function testMapRawDataIgnoresNonNumericPanoCropFields($field, $key)
+    {
+        foreach (array('abc', '', '8000px') as $raw) {
+            $mapped = $this->mapper->mapRawData(array($field => $raw));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 use PHPExif\Contracts\MapperInterface;
 use PHPExif\Mapper\Native;
+use PHPUnit\Framework\Attributes\Group;
 
 class NativeMapperTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,17 +13,13 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->mapper = new Native();
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testClassImplementsCorrectInterface()
     {
         $this->assertInstanceOf(MapperInterface::class, $this->mapper);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataIgnoresFieldIfItDoesntExist()
     {
         $rawData = array('foo' => 'bar');
@@ -31,9 +28,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $mapped);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataMapsFieldsCorrectly()
     {
         $reflProp = new \ReflectionProperty(get_class($this->mapper), 'map');
@@ -72,9 +67,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsDateTimeOriginal()
     {
         $rawData = array(
@@ -92,9 +85,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
     {
         $rawData = array(
@@ -119,9 +110,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
     {
         $rawData = array(
@@ -147,9 +136,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone3()
     {
         $rawData = array(
@@ -175,9 +162,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal()
     {
         $rawData = array(
@@ -189,9 +174,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectTimeZone()
     {
         $rawData = array(
@@ -209,9 +192,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsExposureTime()
     {
         $rawData = array(
@@ -230,9 +211,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsFocalLength()
     {
         $rawData = array(
@@ -244,9 +223,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(6, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsFocalLengthDivisionByZero()
     {
         $rawData = array(
@@ -258,9 +235,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsXResolution()
     {
         $rawData = array(
@@ -272,9 +247,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1500, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsYResolution()
     {
         $rawData = array(
@@ -286,9 +259,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1500, reset($mapped));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataFlattensRawDataWithSections()
     {
         $rawData = array(
@@ -308,9 +279,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $keys);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataMatchesFieldsWithoutCaseSensibilityOnFirstLetter()
     {
         $rawData = array(
@@ -328,9 +297,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $keys);
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsGPSData()
     {
         $expected = array(
@@ -360,9 +327,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresEmptyGPSData()
     {
         $result = $this->mapper->mapRawData(
@@ -377,9 +342,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(false, reset($result));
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyFormatsAltitudeData()
     {
         $expected = array(
@@ -399,9 +362,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIgnoresIncorrectAltitude()
     {
         $result = $this->mapper->mapRawData(
@@ -448,9 +409,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testNormalizeComponentCorrectly()
     {
         $reflMethod = new \ReflectionMethod(Native::class, 'normalizeComponent');
@@ -473,9 +432,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyIsoFormats()
     {
         $expected = array(
@@ -496,9 +453,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyLensData()
     {
         $data = array(
@@ -530,9 +485,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyLensData2()
     {
         $data = array(
@@ -554,9 +507,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyKeywords()
     {
         $rawData = array(
@@ -571,9 +522,7 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @group mapper
-     */
+    #[Group('mapper')]
     public function testMapRawDataCorrectlyKeywordsAndSubject()
     {
         $rawData = array(

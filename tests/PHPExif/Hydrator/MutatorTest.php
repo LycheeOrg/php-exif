@@ -1,6 +1,7 @@
 <?php
 
-use PhpExif\Hydrator\Mutator;
+use PHPExif\Hydrator\Mutator;
+use PHPUnit\Framework\Attributes\Group;
 
 class MutatorTest extends \PHPUnit\Framework\TestCase
 {
@@ -11,9 +12,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @group hydrator
-     */
+    #[Group('hydrator')]
     public function testHydrateCallsDetermineMutator()
     {
         // input data
@@ -28,7 +27,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
 
         $mock->expects($this->exactly(count($input)))
             ->method('determineMutator')
-            ->will($this->returnValue('setFoo'));
+            ->willReturn('setFoo');
 
         $object = new TestClass();
 
@@ -36,9 +35,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
         $mock->hydrate($object, $input);
     }
 
-    /**
-     * @group hydrator
-     */
+    #[Group('hydrator')]
     public function testHydrateCallsMutatorsOnObject()
     {
         // input data
@@ -48,7 +45,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
 
         // create mock
         $mock = $this->getMockBuilder('TestClass')
-            ->setMethods(array('setBar'))
+            ->onlyMethods(array('setBar'))
             ->getMock();
 
         $mock->expects($this->once())
@@ -60,9 +57,7 @@ class MutatorTest extends \PHPUnit\Framework\TestCase
         $hydrator->hydrate($mock, $input);
     }
 
-    /**
-     * @group hydrator
-     */
+    #[Group('hydrator')]
     public function testHydrateCallsEmptyValues()
     {
         // input data

@@ -61,6 +61,15 @@ class ImageMagick extends AbstractMapper
     public const STATE                    = 'iptc:state';
     public const COUNTRY                  = 'iptc:country';
 
+    public const PROJECTIONTYPE               = 'GPano:ProjectionType';
+    public const USEPANORAMAVIEWER            = 'GPano:UsePanoramaViewer';
+    public const FULLPANOWIDTHPIXELS          = 'GPano:FullPanoWidthPixels';
+    public const FULLPANOHEIGHTPIXELS         = 'GPano:FullPanoHeightPixels';
+    public const CROPPEDAREALEFTPIXELS        = 'GPano:CroppedAreaLeftPixels';
+    public const CROPPEDAREATOPPIXELS         = 'GPano:CroppedAreaTopPixels';
+    public const CROPPEDAREAIMAGEWIDTHPIXELS  = 'GPano:CroppedAreaImageWidthPixels';
+    public const CROPPEDAREAIMAGEHEIGHTPIXELS = 'GPano:CroppedAreaImageHeightPixels';
+
 
     /**
      * Maps the ExifTool fields to the fields of
@@ -109,7 +118,15 @@ class ImageMagick extends AbstractMapper
         self::CITY                     => Exif::CITY,
         self::SUBLOCATION              => Exif::SUBLOCATION,
         self::STATE                    => Exif::STATE,
-        self::COUNTRY                  => Exif::COUNTRY
+        self::COUNTRY                  => Exif::COUNTRY,
+        self::PROJECTIONTYPE               => Exif::PROJECTIONTYPE,
+        self::USEPANORAMAVIEWER            => Exif::USEPANORAMAVIEWER,
+        self::FULLPANOWIDTHPIXELS          => Exif::FULLPANOWIDTHPIXELS,
+        self::FULLPANOHEIGHTPIXELS         => Exif::FULLPANOHEIGHTPIXELS,
+        self::CROPPEDAREALEFTPIXELS        => Exif::CROPPEDAREALEFTPIXELS,
+        self::CROPPEDAREATOPPIXELS         => Exif::CROPPEDAREATOPPIXELS,
+        self::CROPPEDAREAIMAGEWIDTHPIXELS  => Exif::CROPPEDAREAIMAGEWIDTHPIXELS,
+        self::CROPPEDAREAIMAGEHEIGHTPIXELS => Exif::CROPPEDAREAIMAGEHEIGHTPIXELS
 
     );
 
@@ -248,6 +265,29 @@ class ImageMagick extends AbstractMapper
                 case self::KEYWORDS:
                     if (!is_array($value)) {
                         $value = [$value];
+                    }
+                    break;
+                case self::PROJECTIONTYPE:
+                    if (!is_string($value) || $value === '') {
+                        continue 2;
+                    }
+                    $value = strtolower($value);
+                    break;
+                case self::USEPANORAMAVIEWER:
+                    $value = $this->normalizeBool($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::FULLPANOWIDTHPIXELS:
+                case self::FULLPANOHEIGHTPIXELS:
+                case self::CROPPEDAREALEFTPIXELS:
+                case self::CROPPEDAREATOPPIXELS:
+                case self::CROPPEDAREAIMAGEWIDTHPIXELS:
+                case self::CROPPEDAREAIMAGEHEIGHTPIXELS:
+                    $value = $this->normalizeInt($value);
+                    if ($value === null) {
+                        continue 2;
                     }
                     break;
             }
