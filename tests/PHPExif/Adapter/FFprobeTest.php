@@ -3,6 +3,7 @@
 use PHPExif\Adapter\FFprobe;
 use PHPExif\Exif;
 use PHPExif\Reader\PhpExifReaderException;
+use PHPUnit\Framework\Attributes\Group;
 
 class FFprobeTest extends \PHPUnit\Framework\TestCase
 {
@@ -17,9 +18,7 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testGetToolPathFromProperty()
     {
         $reflProperty = new \ReflectionProperty(FFprobe::class, 'toolPath');
@@ -29,9 +28,7 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $this->adapter->getToolPath());
     }
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testSetToolPathInProperty()
     {
         $reflProperty = new \ReflectionProperty(FFprobe::class, 'toolPath');
@@ -42,26 +39,20 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $reflProperty->getValue($this->adapter));
     }
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testSetToolPathThrowsException()
     {
         $this->expectException('InvalidArgumentException');
         $this->adapter->setToolPath('/foo/bar');
     }
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testGetToolPathLazyLoadsPath()
     {
         $this->assertIsString($this->adapter->getToolPath());
     }
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testGetExifFromFileHasData()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/IMG_3824.MOV';
@@ -77,9 +68,7 @@ class FFprobeTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($result->getRawData());
     }
 
-    /**
-     * @group ffprobe
-     */
+    #[Group('ffprobe')]
     public function testErrorImageUsed()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/morning_glory_pool_500.jpg';

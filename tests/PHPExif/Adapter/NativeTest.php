@@ -1,6 +1,7 @@
 <?php
 
 use PHPExif\Adapter\Native;
+use PHPUnit\Framework\Attributes\Group;
 
 class NativeTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,9 +15,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->adapter = new Native();
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testSetIncludeThumbnailInProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'includeThumbnail');
@@ -28,9 +27,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Native::INCLUDE_THUMBNAIL, $reflProperty->getValue($this->adapter));
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetIncludeThumbnailFromProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'includeThumbnail');
@@ -39,17 +36,13 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Native::INCLUDE_THUMBNAIL, $this->adapter->getIncludeThumbnail());
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetIncludeThumbnailHasDefaultValue()
     {
         $this->assertEquals(Native::NO_THUMBNAIL, $this->adapter->getIncludeThumbnail());
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetRequiredSections()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
@@ -57,9 +50,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($reflProperty->getValue($this->adapter), $this->adapter->getRequiredSections());
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testSetRequiredSections()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
@@ -72,9 +63,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($this->adapter, $returnValue);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testAddRequiredSection()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'requiredSections');
@@ -89,9 +78,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($this->adapter, $returnValue);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetExifFromFileNoData()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/empty.jpg';
@@ -102,9 +89,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $result->getRawData());
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetExifFromFileHasData()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/morning_glory_pool_500.jpg';
@@ -114,9 +99,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($result->getRawData());
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetIptcData()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/morning_glory_pool_500.jpg';
@@ -131,9 +114,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetEmptyIptcData()
     {
         $file = PHPEXIF_TEST_ROOT . '/files/empty_iptc.jpg';
@@ -142,9 +123,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([], $result);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testSetSectionsAsArrayInProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
@@ -154,9 +133,7 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testSetSectionsAsArrayConvertsToBoolean()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
@@ -166,14 +143,43 @@ class NativeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group native
-     */
+    #[Group('native')]
     public function testGetSectionsAsArrayFromProperty()
     {
         $reflProperty = new \ReflectionProperty(Native::class, 'sectionsAsArrays');
         $reflProperty->setValue($this->adapter, Native::SECTIONS_AS_ARRAYS);
 
         $this->assertEquals(Native::SECTIONS_AS_ARRAYS, $this->adapter->getSectionsAsArrays());
+    }
+
+    /**
+     * gpano.jpg carries ExposureCompensation -2/3 EV and manual white balance.
+     * The Native, Exiftool and ImageMagick adapter tests assert the same values.
+     */
+    #[Group('native')]
+    public function testGetExposureBiasAndWhiteBalanceFromFile()
+    {
+        if (!extension_loaded('exif')) {
+            $this->markTestSkipped('The exif extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertSame(-0.67, $result->getExposureBias());
+        $this->assertSame(1, $result->getWhiteBalance());
+    }
+
+    /**
+     * The colour temperature is only read by the exiftool adapter,
+     * even though gpano.jpg carries XMP-crs:ColorTemperature 5500.
+     */
+    #[Group('native')]
+    public function testGetWhiteBalanceTemperatureIsNotAvailable()
+    {
+        if (!extension_loaded('exif')) {
+            $this->markTestSkipped('The exif extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertFalse($result->getWhiteBalanceTemperature());
     }
 }

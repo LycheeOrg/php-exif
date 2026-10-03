@@ -3,6 +3,7 @@
 use PHPExif\Adapter\AbstractAdapter;
 use PHPExif\Adapter\Exiftool;
 use PHPExif\Adapter\Native;
+use PHPUnit\Framework\Attributes\Group;
 
 class AbstractAdapterTest extends PHPUnit\Framework\TestCase
 {
@@ -16,18 +17,14 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->adapter = new Native();
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetOptionsReturnsCurrentInstance()
     {
         $result = $this->adapter->setOptions([]);
         $this->assertSame($this->adapter, $result);
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetOptionsCorrectlySetsProperties()
     {
         $expected = array(
@@ -43,9 +40,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetOptionsIgnoresPropertiesWithoutSetters()
     {
         $expected = array(
@@ -60,9 +55,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testConstructorSetsOptions()
     {
         $expected = array(
@@ -78,9 +71,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetMapperReturnsCurrentInstance()
     {
         $mapper = new \PHPExif\Mapper\Native();
@@ -88,9 +79,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($this->adapter, $result);
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetMapperCorrectlySetsInProperty()
     {
         $mapper = new \PHPExif\Mapper\Native();
@@ -100,9 +89,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($mapper, $reflProp->getValue($this->adapter));
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetMapperCorrectlyReturnsFromProperty()
     {
         $mapper = new \PHPExif\Mapper\Native();
@@ -111,9 +98,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($mapper, $this->adapter->getMapper());
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetMapperLazyLoadsMapperWhenNotPresent()
     {
         $reflProp = new \ReflectionProperty(
@@ -127,9 +112,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf($mapperClass, $this->adapter->getMapper());
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetMapperLazyLoadingSetsInProperty()
     {
         $reflProp = new \ReflectionProperty(
@@ -148,9 +131,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf($mapperClass, $reflProp2->getValue($this->adapter));
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetHydratorReturnsCurrentInstance()
     {
         $hydrator = new \PHPExif\Hydrator\Mutator();
@@ -158,9 +139,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($this->adapter, $result);
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testSetHydratorCorrectlySetsInProperty()
     {
         $hydrator = new \PHPExif\Hydrator\Mutator();
@@ -170,9 +149,7 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($hydrator, $reflProp->getValue($this->adapter));
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetHydratorCorrectlyReturnsFromProperty()
     {
         $hydrator = new \PHPExif\Hydrator\Mutator();
@@ -181,18 +158,14 @@ class AbstractAdapterTest extends PHPUnit\Framework\TestCase
         $this->assertSame($hydrator, $this->adapter->getHydrator());
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetHydratorLazyLoadsHydratorWhenNotPresent()
     {
         $hydratorClass = '\\PHPExif\\Hydrator\\Mutator';
         $this->assertInstanceOf($hydratorClass, $this->adapter->getHydrator());
     }
 
-    /**
-     * @group adapter
-     */
+    #[Group('adapter')]
     public function testGetHydratorLazyLoadingSetsInProperty()
     {
         $hydratorClass = '\\PHPExif\\Hydrator\\Mutator';

@@ -37,6 +37,7 @@ class Exiftool extends AbstractMapper
     public const DATETIMEORIGINAL         = 'ExifIFD:DateTimeOriginal';
     public const CREDIT                   = 'IPTC:Credit';
     public const EXPOSURETIME             = 'ExifIFD:ExposureTime';
+    public const EXPOSUREBIAS             = 'ExifIFD:ExposureCompensation';
     public const FILESIZE                 = 'System:FileSize';
     public const FILENAME                 = 'System:FileName';
     public const FOCALLENGTH              = 'ExifIFD:FocalLength';
@@ -55,6 +56,7 @@ class Exiftool extends AbstractMapper
     public const TITLE_XMP                = 'XMP-dc:Title';
     public const XRESOLUTION              = 'IFD0:XResolution';
     public const YRESOLUTION              = 'IFD0:YResolution';
+    public const WHITEBALANCE             = 'ExifIFD:WhiteBalance';
     public const GPSLATITUDE              = 'GPS:GPSLatitude';
     public const GPSLONGITUDE             = 'GPS:GPSLongitude';
     public const GPSALTITUDE              = 'GPS:GPSAltitude';
@@ -100,6 +102,29 @@ class Exiftool extends AbstractMapper
     public const DURATION_WMV                = 'ASF:SendDuration';
     public const DATETIMEORIGINAL_PNG        = 'PNG:CreationTime';
 
+    // White balance colour temperature (Kelvin), from the maker notes or Lightroom.
+    // Listed in priority order: measured / as-shot values first, user settings last.
+    public const WHITEBALANCETEMPERATURE_CANON_ASSHOT = 'Canon:ColorTempAsShot';
+    public const WHITEBALANCETEMPERATURE_APPLE        = 'Apple:ColorTemperature';
+    public const WHITEBALANCETEMPERATURE_SONY         = 'Sony:ColorTemperature';
+    public const WHITEBALANCETEMPERATURE_FUJIFILM     = 'FujiFilm:ColorTemperature';
+    public const WHITEBALANCETEMPERATURE_PANASONIC    = 'Panasonic:ColorTempKelvin';
+    public const WHITEBALANCETEMPERATURE_PENTAX       = 'Pentax:ColorTemperature';
+    public const WHITEBALANCETEMPERATURE_CANON        = 'Canon:ColorTemperature';
+    public const WHITEBALANCETEMPERATURE_LIGHTROOM    = 'XMP-crs:ColorTemperature';
+
+    public const WHITEBALANCETEMPERATURE_MIN = 1000;
+    public const WHITEBALANCETEMPERATURE_MAX = 50000;
+
+    public const PROJECTIONTYPE               = 'XMP-GPano:ProjectionType';
+    public const USEPANORAMAVIEWER            = 'XMP-GPano:UsePanoramaViewer';
+    public const FULLPANOWIDTHPIXELS          = 'XMP-GPano:FullPanoWidthPixels';
+    public const FULLPANOHEIGHTPIXELS         = 'XMP-GPano:FullPanoHeightPixels';
+    public const CROPPEDAREALEFTPIXELS        = 'XMP-GPano:CroppedAreaLeftPixels';
+    public const CROPPEDAREATOPPIXELS         = 'XMP-GPano:CroppedAreaTopPixels';
+    public const CROPPEDAREAIMAGEWIDTHPIXELS  = 'XMP-GPano:CroppedAreaImageWidthPixels';
+    public const CROPPEDAREAIMAGEHEIGHTPIXELS = 'XMP-GPano:CroppedAreaImageHeightPixels';
+
     /**
      * Maps the ExifTool fields to the fields of
      * the \PHPExif\Exif class
@@ -114,6 +139,7 @@ class Exiftool extends AbstractMapper
         self::DATETIMEORIGINAL         => Exif::CREATION_DATE,
         self::CREDIT                   => Exif::CREDIT,
         self::EXPOSURETIME             => Exif::EXPOSURE,
+        self::EXPOSUREBIAS             => Exif::EXPOSURE_BIAS,
         self::FILESIZE                 => Exif::FILESIZE,
         self::FILENAME                 => Exif::FILENAME,
         self::FOCALLENGTH              => Exif::FOCAL_LENGTH,
@@ -132,6 +158,15 @@ class Exiftool extends AbstractMapper
         self::TITLE_XMP                => Exif::TITLE,
         self::YRESOLUTION              => Exif::VERTICAL_RESOLUTION,
         self::IMAGEWIDTH               => Exif::WIDTH,
+        self::WHITEBALANCE             => Exif::WHITE_BALANCE,
+        self::WHITEBALANCETEMPERATURE_CANON_ASSHOT => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_APPLE        => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_SONY         => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_FUJIFILM     => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_PANASONIC    => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_PENTAX       => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_CANON        => Exif::WHITE_BALANCE_TEMPERATURE,
+        self::WHITEBALANCETEMPERATURE_LIGHTROOM    => Exif::WHITE_BALANCE_TEMPERATURE,
         self::CAPTIONABSTRACT          => Exif::CAPTION,
         self::GPSLATITUDE              => Exif::LATITUDE,
         self::GPSLONGITUDE             => Exif::LONGITUDE,
@@ -175,7 +210,29 @@ class Exiftool extends AbstractMapper
         self::CITY                        => Exif::CITY,
         self::STATE                       => Exif::STATE,
         self::COUNTRY                     => Exif::COUNTRY,
-        self::DATETIMEORIGINAL_PNG        => Exif::CREATION_DATE
+        self::DATETIMEORIGINAL_PNG        => Exif::CREATION_DATE,
+        self::PROJECTIONTYPE               => Exif::PROJECTIONTYPE,
+        self::USEPANORAMAVIEWER            => Exif::USEPANORAMAVIEWER,
+        self::FULLPANOWIDTHPIXELS          => Exif::FULLPANOWIDTHPIXELS,
+        self::FULLPANOHEIGHTPIXELS         => Exif::FULLPANOHEIGHTPIXELS,
+        self::CROPPEDAREALEFTPIXELS        => Exif::CROPPEDAREALEFTPIXELS,
+        self::CROPPEDAREATOPPIXELS         => Exif::CROPPEDAREATOPPIXELS,
+        self::CROPPEDAREAIMAGEWIDTHPIXELS  => Exif::CROPPEDAREAIMAGEWIDTHPIXELS,
+        self::CROPPEDAREAIMAGEHEIGHTPIXELS => Exif::CROPPEDAREAIMAGEHEIGHTPIXELS
+    );
+
+    /**
+     * Tags holding the white balance colour temperature, in priority order
+     */
+    protected array $whiteBalanceTemperatureTags = array(
+        self::WHITEBALANCETEMPERATURE_CANON_ASSHOT,
+        self::WHITEBALANCETEMPERATURE_APPLE,
+        self::WHITEBALANCETEMPERATURE_SONY,
+        self::WHITEBALANCETEMPERATURE_FUJIFILM,
+        self::WHITEBALANCETEMPERATURE_PANASONIC,
+        self::WHITEBALANCETEMPERATURE_PENTAX,
+        self::WHITEBALANCETEMPERATURE_CANON,
+        self::WHITEBALANCETEMPERATURE_LIGHTROOM,
     );
 
     protected bool $numeric = true;
@@ -386,6 +443,58 @@ class Exiftool extends AbstractMapper
                         $mappedData[Exif::LENS] = $value;
                     }
                     continue 2;
+                case self::EXPOSUREBIAS:
+                    $value = $this->normalizeExposureBias($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::WHITEBALANCE:
+                    $value = $this->normalizeWhiteBalance($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::WHITEBALANCETEMPERATURE_CANON_ASSHOT:
+                case self::WHITEBALANCETEMPERATURE_APPLE:
+                case self::WHITEBALANCETEMPERATURE_SONY:
+                case self::WHITEBALANCETEMPERATURE_FUJIFILM:
+                case self::WHITEBALANCETEMPERATURE_PANASONIC:
+                case self::WHITEBALANCETEMPERATURE_PENTAX:
+                case self::WHITEBALANCETEMPERATURE_CANON:
+                case self::WHITEBALANCETEMPERATURE_LIGHTROOM:
+                    // resolved once from all available tags, by priority
+                    if (array_key_exists(Exif::WHITE_BALANCE_TEMPERATURE, $mappedData)) {
+                        continue 2;
+                    }
+                    $value = $this->extractWhiteBalanceTemperature($data);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::PROJECTIONTYPE:
+                    if (!is_string($value) || $value === '') {
+                        continue 2;
+                    }
+                    $value = strtolower($value);
+                    break;
+                case self::USEPANORAMAVIEWER:
+                    $value = $this->normalizeBool($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::FULLPANOWIDTHPIXELS:
+                case self::FULLPANOHEIGHTPIXELS:
+                case self::CROPPEDAREALEFTPIXELS:
+                case self::CROPPEDAREATOPPIXELS:
+                case self::CROPPEDAREAIMAGEWIDTHPIXELS:
+                case self::CROPPEDAREAIMAGEHEIGHTPIXELS:
+                    $value = $this->normalizeInt($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
             }
             // set end result
             $mappedData[$key] = $value;
@@ -398,6 +507,32 @@ class Exiftool extends AbstractMapper
         }
 
         return $mappedData;
+    }
+
+    /**
+     * Returns the first valid colour temperature (Kelvin) among the known tags,
+     * in priority order. Values outside a plausible Kelvin range are skipped:
+     * this drops Sony's 0 ("Auto") and 0xffffffff ("n/a"), and the text
+     * exiftool prints for them without -n.
+     *
+     * @param array $data
+     * @return int|null
+     */
+    protected function extractWhiteBalanceTemperature(array $data): ?int
+    {
+        foreach ($this->whiteBalanceTemperatureTags as $tag) {
+            if (!array_key_exists($tag, $data)) {
+                continue;
+            }
+            $kelvin = $this->normalizeInt($this->trim($data[$tag]));
+            if ($kelvin !== null
+                && $kelvin >= self::WHITEBALANCETEMPERATURE_MIN
+                && $kelvin <= self::WHITEBALANCETEMPERATURE_MAX) {
+                return $kelvin;
+            }
+        }
+
+        return null;
     }
 
     /**
