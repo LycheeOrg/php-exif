@@ -152,6 +152,9 @@ class ExifTest extends \PHPUnit\Framework\TestCase
             array('getCroppedAreaTopPixels'),
             array('getCroppedAreaImageWidthPixels'),
             array('getCroppedAreaImageHeightPixels'),
+            array('getExposureBias'),
+            array('getWhiteBalance'),
+            array('getWhiteBalanceTemperature'),
         );
     }
 
@@ -563,6 +566,67 @@ class ExifTest extends \PHPUnit\Framework\TestCase
     }
 
     #[Group('exif')]
+    public function testGetExposureBias()
+    {
+        $expected = -0.67;
+        $data[Exif::EXPOSURE_BIAS] = $expected;
+        $this->exif->setData($data);
+        $this->assertSame($expected, $this->exif->getExposureBias());
+    }
+
+    #[Group('exif')]
+    public function testSetExposureBias()
+    {
+        foreach (array(-0.67, 0.0, 1.5) as $expected) {
+            $result = $this->exif->setExposureBias($expected);
+
+            $this->assertSame($this->exif, $result);
+            $this->assertSame($expected, $this->exif->getExposureBias());
+            $this->assertSame(array(Exif::EXPOSURE_BIAS => $expected), $this->exif->getData());
+        }
+    }
+
+    #[Group('exif')]
+    public function testGetWhiteBalance()
+    {
+        $expected = 1;
+        $data[Exif::WHITE_BALANCE] = $expected;
+        $this->exif->setData($data);
+        $this->assertSame($expected, $this->exif->getWhiteBalance());
+    }
+
+    #[Group('exif')]
+    public function testSetWhiteBalance()
+    {
+        foreach (array(0, 1) as $expected) {
+            $result = $this->exif->setWhiteBalance($expected);
+
+            $this->assertSame($this->exif, $result);
+            $this->assertSame($expected, $this->exif->getWhiteBalance());
+            $this->assertSame(array(Exif::WHITE_BALANCE => $expected), $this->exif->getData());
+        }
+    }
+
+    #[Group('exif')]
+    public function testGetWhiteBalanceTemperature()
+    {
+        $expected = 5500;
+        $data[Exif::WHITE_BALANCE_TEMPERATURE] = $expected;
+        $this->exif->setData($data);
+        $this->assertSame($expected, $this->exif->getWhiteBalanceTemperature());
+    }
+
+    #[Group('exif')]
+    public function testSetWhiteBalanceTemperature()
+    {
+        $result = $this->exif->setWhiteBalanceTemperature(5500);
+
+        $this->assertSame($this->exif, $result);
+        $this->assertSame(5500, $this->exif->getWhiteBalanceTemperature());
+        $this->assertSame(array(Exif::WHITE_BALANCE_TEMPERATURE => 5500), $this->exif->getData());
+    }
+
+    #[Group('exif')]
     public function testGetProjectionType()
     {
         $expected = 'equirectangular';
@@ -695,6 +759,22 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                     $propertyValue = $reflProp->getValue($this->exif);
                     $this->assertSame($pixels, $propertyValue[$value]);
                     break;
+                case 'exposureBias':
+                    $bias = -0.67;
+                    $this->exif->$setter($bias);
+                    $propertyValue = $reflProp->getValue($this->exif);
+                    $this->assertSame($bias, $propertyValue[$value]);
+                    break;
+                case 'whiteBalanceTemperature':
+                    $this->exif->$setter(5500);
+                    $propertyValue = $reflProp->getValue($this->exif);
+                    $this->assertSame(5500, $propertyValue[$value]);
+                    break;
+                case 'whiteBalance':
+                    $this->exif->$setter(1);
+                    $propertyValue = $reflProp->getValue($this->exif);
+                    $this->assertSame(1, $propertyValue[$value]);
+                    break;
                 case 'UsePanoramaViewer':
                     $this->exif->$setter(false);
                     $propertyValue = $reflProp->getValue($this->exif);
@@ -742,6 +822,8 @@ class ExifTest extends \PHPUnit\Framework\TestCase
                 $name = $method->getName();
                 if (
                     strpos($name, 'get') !== 0 || $name === 'getRawData' || $name === 'getData' || $name === 'getColorSpace' ||
+                    // only the exiftool adapter reads the colour temperature (maker notes)
+                    $name === 'getWhiteBalanceTemperature' ||
                     ($name === 'getLens' && $file === PHPEXIF_TEST_ROOT . '/files/dsc_5794.jpg') ||
                     ($file === PHPEXIF_TEST_ROOT . '/files/mongolia.jpeg' && ($name === 'getKeywords' || $name === 'getLens')) ||
                     ($file === PHPEXIF_TEST_ROOT . '/files/utf8.jpg' && ($name === 'getAuthor' || $name === 'getDescription'))
@@ -787,7 +869,9 @@ class ExifTest extends \PHPUnit\Framework\TestCase
             // find all Getter methods on the results and compare its output
             foreach ($methods as $method) {
                 $name = $method->getName();
-                if (strpos($name, 'get') !== 0 || $name === 'getRawData' || $name === 'getData' || $name === 'getColorSpace') {
+                if (strpos($name, 'get') !== 0 || $name === 'getRawData' || $name === 'getData' || $name === 'getColorSpace'
+                    || $name === 'getWhiteBalanceTemperature'
+                ) {
                     continue;
                 }
                 $result_exif = $result_exif_exiftool->$name();

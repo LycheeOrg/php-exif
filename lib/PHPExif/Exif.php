@@ -33,6 +33,7 @@ class Exif
     public const DESCRIPTION           = 'description';
     public const DURATION              = 'duration';
     public const EXPOSURE              = 'exposure';
+    public const EXPOSURE_BIAS         = 'exposureBias';
     public const FILESIZE              = 'FileSize';
     public const FILENAME              = 'FileName';
     public const FOCAL_LENGTH          = 'focalLength';
@@ -63,6 +64,8 @@ class Exif
     public const TITLE                 = 'title';
     public const USEPANORAMAVIEWER     = 'UsePanoramaViewer';
     public const VERTICAL_RESOLUTION   = 'verticalResolution';
+    public const WHITE_BALANCE         = 'whiteBalance';
+    public const WHITE_BALANCE_TEMPERATURE = 'whiteBalanceTemperature';
     public const WIDTH                 = 'width';
 
 
@@ -345,6 +348,91 @@ class Exif
     public function setExposure(string $value): Exif
     {
         $this->data[self::EXPOSURE] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the exposure bias (exposure compensation) in EV, if it exists
+     * e.g. -0.67 for -2/3 EV
+     *
+     * @return float|false
+     */
+    public function getExposureBias(): float|false
+    {
+        if (!isset($this->data[self::EXPOSURE_BIAS])) {
+            return false;
+        }
+
+        return $this->data[self::EXPOSURE_BIAS];
+    }
+
+    /**
+     * Sets the exposure bias (exposure compensation) in EV
+     *
+     * @param float $value
+     * @return Exif
+     */
+    public function setExposureBias(float $value): Exif
+    {
+        $this->data[self::EXPOSURE_BIAS] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the EXIF white balance mode, if it exists
+     * 0 = auto, 1 = manual
+     *
+     * @return int|false
+     */
+    public function getWhiteBalance(): int|false
+    {
+        if (!isset($this->data[self::WHITE_BALANCE])) {
+            return false;
+        }
+
+        return $this->data[self::WHITE_BALANCE];
+    }
+
+    /**
+     * Sets the EXIF white balance mode (0 = auto, 1 = manual)
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setWhiteBalance(int $value): Exif
+    {
+        $this->data[self::WHITE_BALANCE] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns the white balance colour temperature in Kelvin, if it exists.
+     * Only the exiftool adapter provides it, as it comes from the maker notes
+     * (or Lightroom's XMP-crs data).
+     *
+     * @return int|false
+     */
+    public function getWhiteBalanceTemperature(): int|false
+    {
+        if (!isset($this->data[self::WHITE_BALANCE_TEMPERATURE])) {
+            return false;
+        }
+
+        return $this->data[self::WHITE_BALANCE_TEMPERATURE];
+    }
+
+    /**
+     * Sets the white balance colour temperature in Kelvin
+     *
+     * @param int $value
+     * @return Exif
+     */
+    public function setWhiteBalanceTemperature(int $value): Exif
+    {
+        $this->data[self::WHITE_BALANCE_TEMPERATURE] = $value;
 
         return $this;
     }

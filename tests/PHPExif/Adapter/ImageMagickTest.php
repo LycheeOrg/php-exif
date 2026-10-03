@@ -56,4 +56,35 @@ class ImageMagickTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(6000, $result->getCroppedAreaImageWidthPixels());
         $this->assertSame(2000, $result->getCroppedAreaImageHeightPixels());
     }
+
+    /**
+     * gpano.jpg carries ExposureCompensation -2/3 EV and manual white balance.
+     * The Native, Exiftool and ImageMagick adapter tests assert the same values.
+     */
+    #[Group('ImageMagick')]
+    public function testGetExposureBiasAndWhiteBalanceFromFile()
+    {
+        if (!extension_loaded('imagick')) {
+            $this->markTestSkipped('The imagick extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertSame(-0.67, $result->getExposureBias());
+        $this->assertSame(1, $result->getWhiteBalance());
+    }
+
+    /**
+     * The colour temperature is only read by the exiftool adapter,
+     * even though gpano.jpg carries XMP-crs:ColorTemperature 5500.
+     */
+    #[Group('ImageMagick')]
+    public function testGetWhiteBalanceTemperatureIsNotAvailable()
+    {
+        if (!extension_loaded('imagick')) {
+            $this->markTestSkipped('The imagick extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertFalse($result->getWhiteBalanceTemperature());
+    }
 }

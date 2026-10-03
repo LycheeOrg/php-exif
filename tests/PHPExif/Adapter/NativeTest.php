@@ -151,4 +151,35 @@ class NativeTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals(Native::SECTIONS_AS_ARRAYS, $this->adapter->getSectionsAsArrays());
     }
+
+    /**
+     * gpano.jpg carries ExposureCompensation -2/3 EV and manual white balance.
+     * The Native, Exiftool and ImageMagick adapter tests assert the same values.
+     */
+    #[Group('native')]
+    public function testGetExposureBiasAndWhiteBalanceFromFile()
+    {
+        if (!extension_loaded('exif')) {
+            $this->markTestSkipped('The exif extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertSame(-0.67, $result->getExposureBias());
+        $this->assertSame(1, $result->getWhiteBalance());
+    }
+
+    /**
+     * The colour temperature is only read by the exiftool adapter,
+     * even though gpano.jpg carries XMP-crs:ColorTemperature 5500.
+     */
+    #[Group('native')]
+    public function testGetWhiteBalanceTemperatureIsNotAvailable()
+    {
+        if (!extension_loaded('exif')) {
+            $this->markTestSkipped('The exif extension is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertFalse($result->getWhiteBalanceTemperature());
+    }
 }

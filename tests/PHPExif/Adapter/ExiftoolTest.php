@@ -144,4 +144,35 @@ class ExiftoolTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(6000, $result->getCroppedAreaImageWidthPixels());
         $this->assertSame(2000, $result->getCroppedAreaImageHeightPixels());
     }
+
+    /**
+     * gpano.jpg carries ExposureCompensation -2/3 EV and manual white balance.
+     * The Native, Exiftool and ImageMagick adapter tests assert the same values.
+     */
+    #[Group('exiftool')]
+    public function testGetExposureBiasAndWhiteBalanceFromFile()
+    {
+        if ($this->adapter->getToolPath() === '') {
+            $this->markTestSkipped('exiftool is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertSame(-0.67, $result->getExposureBias());
+        $this->assertSame(1, $result->getWhiteBalance());
+    }
+
+    /**
+     * gpano.jpg carries XMP-crs:ColorTemperature 5500.
+     * Only the exiftool adapter reads the colour temperature.
+     */
+    #[Group('exiftool')]
+    public function testGetWhiteBalanceTemperatureFromFile()
+    {
+        if ($this->adapter->getToolPath() === '') {
+            $this->markTestSkipped('exiftool is not available.');
+        }
+        $result = $this->adapter->getExifFromFile(PHPEXIF_TEST_ROOT . '/files/gpano.jpg');
+
+        $this->assertSame(5500, $result->getWhiteBalanceTemperature());
+    }
 }

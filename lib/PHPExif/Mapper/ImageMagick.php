@@ -26,6 +26,7 @@ class ImageMagick extends AbstractMapper
     public const DATETIMEORIGINAL         = 'exif:DateTimeOriginal';
     public const DESCRIPTION              = 'exif:ImageDescription';
     public const EXPOSURETIME             = 'exif:ExposureTime';
+    public const EXPOSUREBIAS             = 'exif:ExposureBiasValue';
     public const FILESIZE                 = 'filesize';
     public const FILENAME                 = 'filename';
     public const FOCALLENGTH              = 'exif:FocalLength';
@@ -48,6 +49,7 @@ class ImageMagick extends AbstractMapper
     public const SOFTWARE                 = 'exif:Software';
     public const XRESOLUTION              = 'exif:XResolution';
     public const YRESOLUTION              = 'exif:YResolution';
+    public const WHITEBALANCE             = 'exif:WhiteBalance';
     public const TITLE                    = 'iptc:title';
     public const KEYWORDS                 = 'iptc:keywords';
     public const COPYRIGHT_IPTC           = 'iptc:copyright';
@@ -85,6 +87,7 @@ class ImageMagick extends AbstractMapper
         self::DATETIMEORIGINAL         => Exif::CREATION_DATE,
         self::DESCRIPTION              => Exif::DESCRIPTION,
         self::EXPOSURETIME             => Exif::EXPOSURE,
+        self::EXPOSUREBIAS             => Exif::EXPOSURE_BIAS,
         self::FILESIZE                 => Exif::FILESIZE,
         self::FILENAME                 => Exif::FILENAME,
         self::FOCALLENGTH              => Exif::FOCAL_LENGTH,
@@ -107,6 +110,7 @@ class ImageMagick extends AbstractMapper
         self::SOFTWARE                 => Exif::SOFTWARE,
         self::XRESOLUTION              => Exif::HORIZONTAL_RESOLUTION,
         self::YRESOLUTION              => Exif::VERTICAL_RESOLUTION,
+        self::WHITEBALANCE             => Exif::WHITE_BALANCE,
         self::TITLE                    => Exif::TITLE,
         self::KEYWORDS                 => Exif::KEYWORDS,
         self::COPYRIGHT_IPTC           => Exif::COPYRIGHT,
@@ -265,6 +269,18 @@ class ImageMagick extends AbstractMapper
                 case self::KEYWORDS:
                     if (!is_array($value)) {
                         $value = [$value];
+                    }
+                    break;
+                case self::EXPOSUREBIAS:
+                    $value = $this->normalizeExposureBias($value);
+                    if ($value === null) {
+                        continue 2;
+                    }
+                    break;
+                case self::WHITEBALANCE:
+                    $value = $this->normalizeWhiteBalance($value);
+                    if ($value === null) {
+                        continue 2;
                     }
                     break;
                 case self::PROJECTIONTYPE:

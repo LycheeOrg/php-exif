@@ -51,6 +51,8 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[ImageMagick::IMAGEWIDTH_PNG]);
         unset($map[ImageMagick::COPYRIGHT_IPTC]);
         unset($map[ImageMagick::PROJECTIONTYPE]);
+        unset($map[ImageMagick::EXPOSUREBIAS]);
+        unset($map[ImageMagick::WHITEBALANCE]);
         unset($map[ImageMagick::USEPANORAMAVIEWER]);
         unset($map[ImageMagick::FULLPANOWIDTHPIXELS]);
         unset($map[ImageMagick::FULLPANOHEIGHTPIXELS]);
@@ -619,6 +621,80 @@ class ImageMagickMapperTest extends \PHPUnit\Framework\TestCase
     {
         foreach (array('abc', '', '8000px') as $raw) {
             $mapped = $this->mapper->mapRawData(array($field => $raw));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    /**
+     * Data provider for testMapRawDataCorrectlyFormatsExposureBias
+     *
+     * @return array
+     */
+    public static function providerExposureBias()
+    {
+        return array(
+            'rational -2/3' => array('-2/3', -0.67),
+            'rational +1/3' => array('+1/3', 0.33),
+            'rational 0/6' => array('0/6', 0.0),
+            'rational 3/2' => array('3/2', 1.5),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerExposureBias')]
+    public function testMapRawDataCorrectlyFormatsExposureBias($raw, $expected)
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            ImageMagick::EXPOSUREBIAS => $raw,
+        ));
+
+        $this->assertSame(array(Exif::EXPOSURE_BIAS => $expected), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresInvalidExposureBias()
+    {
+        foreach (array('abc', '', '1/0', '1/abc') as $raw) {
+            $mapped = $this->mapper->mapRawData(array(
+                ImageMagick::EXPOSUREBIAS => $raw,
+            ));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    /**
+     * Data provider for testMapRawDataCorrectlyFormatsWhiteBalance
+     *
+     * @return array
+     */
+    public static function providerWhiteBalance()
+    {
+        return array(
+            'string 0' => array('0', 0),
+            'string 1' => array('1', 1),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerWhiteBalance')]
+    public function testMapRawDataCorrectlyFormatsWhiteBalance($raw, $expected)
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            ImageMagick::WHITEBALANCE => $raw,
+        ));
+
+        $this->assertSame(array(Exif::WHITE_BALANCE => $expected), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresInvalidWhiteBalance()
+    {
+        foreach (array('abc', '') as $raw) {
+            $mapped = $this->mapper->mapRawData(array(
+                ImageMagick::WHITEBALANCE => $raw,
+            ));
 
             $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
         }

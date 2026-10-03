@@ -88,6 +88,16 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[Exiftool::CONTENTIDENTIFIER]);
         unset($map[Exiftool::CONTENTIDENTIFIER_QUICKTIME]);
         unset($map[Exiftool::PROJECTIONTYPE]);
+        unset($map[Exiftool::EXPOSUREBIAS]);
+        unset($map[Exiftool::WHITEBALANCE]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_CANON_ASSHOT]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_APPLE]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_SONY]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_FUJIFILM]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_PANASONIC]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_PENTAX]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_CANON]);
+        unset($map[Exiftool::WHITEBALANCETEMPERATURE_LIGHTROOM]);
         unset($map[Exiftool::USEPANORAMAVIEWER]);
         unset($map[Exiftool::FULLPANOWIDTHPIXELS]);
         unset($map[Exiftool::FULLPANOHEIGHTPIXELS]);
@@ -797,5 +807,161 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
 
             $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
         }
+    }
+
+    /**
+     * Data provider for testMapRawDataCorrectlyFormatsExposureBias
+     *
+     * @return array
+     */
+    public static function providerExposureBias()
+    {
+        return array(
+            'numeric -2/3' => array(-0.6666666667, -0.67),
+            'numeric 0' => array(0, 0.0),
+            'numeric 1' => array(1, 1.0),
+            'rational -2/3' => array('-2/3', -0.67),
+            'rational +1/3' => array('+1/3', 0.33),
+            'rational 0/6' => array('0/6', 0.0),
+            'rational 3/2' => array('3/2', 1.5),
+            'string 0' => array('0', 0.0),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerExposureBias')]
+    public function testMapRawDataCorrectlyFormatsExposureBias($raw, $expected)
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::EXPOSUREBIAS => $raw,
+        ));
+
+        $this->assertSame(array(Exif::EXPOSURE_BIAS => $expected), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresInvalidExposureBias()
+    {
+        foreach (array('abc', '', '1/0', '1/abc') as $raw) {
+            $mapped = $this->mapper->mapRawData(array(
+                Exiftool::EXPOSUREBIAS => $raw,
+            ));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    /**
+     * Data provider for testMapRawDataCorrectlyFormatsWhiteBalance
+     *
+     * @return array
+     */
+    public static function providerWhiteBalance()
+    {
+        return array(
+            'int 0' => array(0, 0),
+            'int 1' => array(1, 1),
+            'string 0' => array('0', 0),
+            'string 1' => array('1', 1),
+            'label Auto' => array('Auto', 0),
+            'label Manual' => array('Manual', 1),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerWhiteBalance')]
+    public function testMapRawDataCorrectlyFormatsWhiteBalance($raw, $expected)
+    {
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::WHITEBALANCE => $raw,
+        ));
+
+        $this->assertSame(array(Exif::WHITE_BALANCE => $expected), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataIgnoresInvalidWhiteBalance()
+    {
+        foreach (array('abc', '') as $raw) {
+            $mapped = $this->mapper->mapRawData(array(
+                Exiftool::WHITEBALANCE => $raw,
+            ));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    /**
+     * Data provider: every exiftool tag that can hold the colour temperature
+     *
+     * @return array
+     */
+    public static function providerWhiteBalanceTemperatureTags()
+    {
+        return array(
+            'CANON_ASSHOT' => array(Exiftool::WHITEBALANCETEMPERATURE_CANON_ASSHOT),
+            'APPLE' => array(Exiftool::WHITEBALANCETEMPERATURE_APPLE),
+            'SONY' => array(Exiftool::WHITEBALANCETEMPERATURE_SONY),
+            'FUJIFILM' => array(Exiftool::WHITEBALANCETEMPERATURE_FUJIFILM),
+            'PANASONIC' => array(Exiftool::WHITEBALANCETEMPERATURE_PANASONIC),
+            'PENTAX' => array(Exiftool::WHITEBALANCETEMPERATURE_PENTAX),
+            'CANON' => array(Exiftool::WHITEBALANCETEMPERATURE_CANON),
+            'LIGHTROOM' => array(Exiftool::WHITEBALANCETEMPERATURE_LIGHTROOM),
+        );
+    }
+
+    #[Group('mapper')]
+    #[DataProvider('providerWhiteBalanceTemperatureTags')]
+    public function testMapRawDataCorrectlyFormatsWhiteBalanceTemperature($field)
+    {
+        foreach (array(5500, '5500', ' 5500 ') as $raw) {
+            $mapped = $this->mapper->mapRawData(array($field => $raw));
+
+            $this->assertSame(
+                array(Exif::WHITE_BALANCE_TEMPERATURE => 5500),
+                $mapped,
+                'value: ' . var_export($raw, true)
+            );
+        }
+    }
+
+    /**
+     * Sony writes 0 for "Auto" and 0xffffffff for "n/a";
+     * without -n exiftool prints those as text.
+     */
+    #[Group('mapper')]
+    #[DataProvider('providerWhiteBalanceTemperatureTags')]
+    public function testMapRawDataIgnoresInvalidWhiteBalanceTemperature($field)
+    {
+        foreach (array(0, '0', 4294967295, 'Auto', 'n/a', '', 'abc', 999, 50001) as $raw) {
+            $mapped = $this->mapper->mapRawData(array($field => $raw));
+
+            $this->assertSame(array(), $mapped, 'value: ' . var_export($raw, true));
+        }
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataPrefersMeasuredWhiteBalanceTemperature()
+    {
+        // Lightroom and the manual Canon setting appear first, but the as-shot value wins
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::WHITEBALANCETEMPERATURE_LIGHTROOM    => 6500,
+            Exiftool::WHITEBALANCETEMPERATURE_CANON        => 5200,
+            Exiftool::WHITEBALANCETEMPERATURE_CANON_ASSHOT => 4830,
+        ));
+
+        $this->assertSame(array(Exif::WHITE_BALANCE_TEMPERATURE => 4830), $mapped);
+    }
+
+    #[Group('mapper')]
+    public function testMapRawDataFallsBackWhenWhiteBalanceTemperatureIsAuto()
+    {
+        // Sony "Auto" (0) is skipped in favour of the next valid tag
+        $mapped = $this->mapper->mapRawData(array(
+            Exiftool::WHITEBALANCETEMPERATURE_SONY      => 0,
+            Exiftool::WHITEBALANCETEMPERATURE_LIGHTROOM => 5000,
+        ));
+
+        $this->assertSame(array(Exif::WHITE_BALANCE_TEMPERATURE => 5000), $mapped);
     }
 }
