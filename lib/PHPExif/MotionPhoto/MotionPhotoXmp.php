@@ -2,8 +2,6 @@
 
 namespace PHPExif\MotionPhoto;
 
-use function Safe\xml_parser_set_option;
-
 /**
  * What the XMP packet of a JPEG says about an embedded motion photo video
  *.
@@ -45,7 +43,9 @@ final readonly class MotionPhotoXmp
     {
         $handler = new MotionPhotoXmpHandler();
         $parser = xml_parser_create_ns('UTF-8', MotionPhotoXmpHandler::SEPARATOR);
-        xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
+        // Not Safe: it only wraps this function for PHP 8.4, and setting a valid option cannot fail.
+        // @phpstan-ignore theCodingMachineSafe.function
+        \xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
         xml_set_element_handler($parser, $handler->start(...), $handler->end(...));
         xml_set_character_data_handler($parser, $handler->text(...));
 

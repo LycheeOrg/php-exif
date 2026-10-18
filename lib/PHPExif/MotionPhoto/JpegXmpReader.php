@@ -3,7 +3,6 @@
 namespace PHPExif\MotionPhoto;
 
 use function Safe\fread;
-use function Safe\ftell;
 use function Safe\unpack;
 
 /**
@@ -42,7 +41,7 @@ final class JpegXmpReader
                 return null;
             }
             if ($marker === self::SOS) {
-                return new JpegHeader($xmp, ftell($stream) - 2);
+                return new JpegHeader($xmp, self::position($stream) - 2);
             }
 
             $payloadLength = self::readPayloadLength($stream, $fileSize);
@@ -96,9 +95,30 @@ final class JpegXmpReader
         }
 
         $payloadLength = $segmentLength - 2;
-        $isValid = $payloadLength >= 0 && ftell($stream) + $payloadLength <= $fileSize;
+        $isValid = $payloadLength >= 0 && self::position($stream) + $payloadLength <= $fileSize;
 
         return $isValid ? $payloadLength : null;
+    }
+
+    /**
+     * Current offset in the stream.
+     *
+     * Not `Safe\ftell()`: Safe 2.x, still allowed by composer.json, has no
+     * wrapper for it.
+     *
+     * @param resource $stream
+     *
+     * @phpstan-impure
+     */
+    private static function position($stream): int
+    {
+        // @phpstan-ignore theCodingMachineSafe.function (no wrapper in Safe 2.x, false is handled here)
+        $position = \ftell($stream);
+        if ($position === false) {
+            throw new \RuntimeException('Cannot read the stream position');
+        }
+
+        return $position;
     }
 
     /**
